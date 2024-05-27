@@ -1,9 +1,10 @@
 package ar.edu.unlam.mobile.scaffolding.ui.screens
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -13,41 +14,55 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
 import ar.edu.unlam.mobile.scaffolding.R
+import ar.edu.unlam.mobile.scaffolding.ui.components.FlagCardGame
+import ar.edu.unlam.mobile.scaffolding.ui.components.GradientComponent
 import ar.edu.unlam.mobile.scaffolding.ui.components.OptionButton
 
 @Composable
-fun GameClassicScreen() {
+fun GameClassicScreen(controller: NavHostController) {
     Column {
-        Box(
-            modifier =
-                Modifier
-                    .background(Color.Black)
-                    .align(Alignment.CenterHorizontally),
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.logo_white),
-                contentDescription = "Logo",
-            )
+        Box {
+            GradientComponent(250)
+
+            Column(verticalArrangement = Arrangement.SpaceBetween) {
+                Spacer(modifier = Modifier.padding(24.dp))
+                Box(
+                    modifier =
+                        Modifier
+                            .align(Alignment.CenterHorizontally),
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.logo_white),
+                        contentDescription = "Logo",
+                    )
+                }
+
+                Spacer(modifier = Modifier.padding(24.dp))
+
+                FlagCardGame(flag = R.drawable.arg_flag, pts = 100, actualCard = 3, Modifier)
+            }
         }
 
         Column(modifier = Modifier.padding(16.dp)) {
-            QuestionOptions()
+            QuestionOptions(onClick = { controller.navigate(NavHostRouterPaths.GAME_RESULT.route) })
         }
     }
 }
 
 @Composable
-fun QuestionOptions() {
+fun QuestionOptions(onClick: () -> Unit = {}) {
     // simple button with a text inside "Argentina"
-    OptionButton("Argentina", colorResource(R.color.failed), Color.White)
-    OptionButton("Francia", colorResource(R.color.success), Color.White)
-    OptionButton("España")
-    OptionButton("Italia")
+    OptionButton("Argentina", colorResource(R.color.success), Color.White, onClick = onClick)
+    OptionButton("Francia", colorResource(R.color.failed), Color.White, onClick = onClick)
+    OptionButton("España", onClick = onClick)
+    OptionButton("Italia", onClick = onClick)
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GameClassicScreenPreview() {
-    GameClassicScreen()
+//    GameClassicScreen()
 }

@@ -22,8 +22,8 @@ fun GradientComponent(height: Int) {
                 .height(height.dp)
                 .clip(
                     RoundedCornerShape(
-                        bottomStart = 80.dp,
-                        bottomEnd = 80.dp,
+                        bottomStart = 50.dp,
+                        bottomEnd = 50.dp,
                     ),
                 )
                 .background(

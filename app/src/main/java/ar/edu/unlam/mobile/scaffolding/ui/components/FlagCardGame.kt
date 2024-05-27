@@ -39,7 +39,7 @@ fun FlagCardGame(
     actualCard: Int = 0,
     modifier: Modifier,
 ) {
-    Column(modifier.offset(y = (-50).dp)) {
+    Box {
         CounterHolder(modifier)
         ElevatedCard(
             elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
@@ -100,7 +100,7 @@ fun CounterHolder(modifier: Modifier) {
         modifier =
             modifier
                 .fillMaxWidth()
-                .offset(y = 50.dp)
+                .offset(y = -30.dp)
                 .zIndex(1f),
         horizontalArrangement = Arrangement.Center,
     ) {

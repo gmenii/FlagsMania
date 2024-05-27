@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -24,8 +25,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import ar.edu.unlam.mobile.scaffolding.R
 
@@ -39,39 +43,10 @@ fun ScoreCard() {
                 .padding(20.dp),
     ) {
         // Círculo flotante
-        Box(
-            modifier =
-                Modifier
-                    .size(70.dp)
-                    .clip(CircleShape)
-                    .background(
-                        brush =
-                            Brush
-                                .verticalGradient(
-                                    listOf(
-                                        Color(0xFFE4A82B),
-                                        Color(0xFFC4007A),
-                                    ),
-                                ),
-                    )
-                    .zIndex(1f),
-        ) {
-            Box(modifier = Modifier.size(70.dp).clip(CircleShape)) {
-                Box(
-                    modifier =
-                        Modifier
-                            .size(60.dp)
-                            .clip(CircleShape)
-                            .background(Color(0xFFFFFFFF))
-                            .align(Alignment.Center),
-                )
-                Image(
-                    painter = painterResource(id = R.drawable.avatar_1),
-                    contentDescription = "Avatar",
-                    modifier = Modifier.size(60.dp).clip(CircleShape).align(Alignment.Center),
-                )
-            }
+        Column(modifier = Modifier.offset(y = -30.dp).zIndex(1f)) {
+            Avatar()
         }
+
         // Tarjeta
 
         ElevatedCard(
@@ -91,34 +66,85 @@ fun ScoreCard() {
                     .height(200.dp)
                     .align(Alignment.TopCenter),
         ) {
-            Column(
+            CardContent()
+        }
+    }
+}
+
+@Composable
+fun CardContent() {
+    Column(
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(30.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+            Column {
+                Text(text = "Banderas correctas", style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold))
+                Spacer(modifier = Modifier.height(15.dp))
+                Text(text = "Banderas incorrectas", style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold))
+                Spacer(modifier = Modifier.height(15.dp))
+                Text(text = "Puntos totales", style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold))
+            }
+            Column {
+                Text(text = "9/10", style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold))
+                Spacer(modifier = Modifier.height(15.dp))
+                Text(text = "1/10", style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold))
+                Spacer(modifier = Modifier.height(15.dp))
+                Text(text = "200pts", style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold))
+            }
+        }
+    }
+}
+
+@Composable
+fun Avatar() {
+    Box(
+        modifier =
+            Modifier
+                .size(110.dp)
+                .clip(CircleShape)
+                .background(
+                    brush =
+                        Brush
+                            .verticalGradient(
+                                listOf(
+                                    Color(0xFFE4A82B),
+                                    Color(0xFFC4007A),
+                                ),
+                            ),
+                )
+                .zIndex(1f),
+    ) {
+        Box(
+            modifier =
+                Modifier
+                    .size(110.dp)
+                    .clip(CircleShape),
+        ) {
+            Box(
                 modifier =
                     Modifier
-                        .fillMaxSize()
-                        .padding(30.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                ) {
-                    Column {
-                        Text(text = "Banderas correctas")
-                        Spacer(modifier = Modifier.height(15.dp))
-                        Text(text = "Banderas incorrectas")
-                        Spacer(modifier = Modifier.height(15.dp))
-                        Text(text = "Puntos totales")
-                    }
-                    Column {
-                        Text(text = "9/10")
-                        Spacer(modifier = Modifier.height(15.dp))
-                        Text(text = "1/10")
-                        Spacer(modifier = Modifier.height(15.dp))
-                        Text(text = "200pts")
-                    }
-                }
-            }
+                        .size(100.dp)
+                        .clip(CircleShape)
+                        .background(Color(0xFFFFFFFF))
+                        .align(Alignment.Center),
+            )
+            Image(
+                painter = painterResource(id = R.drawable.avatar_1),
+                contentDescription = "Avatar",
+                modifier =
+                    Modifier
+                        .size(100.dp)
+                        .clip(CircleShape)
+                        .align(Alignment.Center),
+            )
         }
     }
 }

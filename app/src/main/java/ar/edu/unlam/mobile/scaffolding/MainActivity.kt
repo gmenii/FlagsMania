@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import ar.edu.unlam.mobile.scaffolding.ui.screens.GameClassicResultScreen
 import ar.edu.unlam.mobile.scaffolding.ui.screens.GameClassicScreen
 import ar.edu.unlam.mobile.scaffolding.ui.screens.HomeScreen
 import ar.edu.unlam.mobile.scaffolding.ui.theme.ScaffoldingV2Theme
@@ -54,7 +55,11 @@ fun MainScreen() {
             }
             composable(NavHostRouterPaths.GAME_CLASSIC.route) {
                 // Home es el componente en sí que es el destino de navegación.
-                GameClassicScreen()
+                GameClassicScreen(controller)
+            }
+            composable(NavHostRouterPaths.GAME_RESULT.route) {
+                // Home es el componente en sí que es el destino de navegación.
+                GameClassicResultScreen(controller)
             }
         }
     }

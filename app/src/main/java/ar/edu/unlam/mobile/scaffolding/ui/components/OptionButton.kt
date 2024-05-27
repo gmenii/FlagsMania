@@ -15,6 +15,7 @@ fun OptionButton(
     text: String,
     backgroundColor: Color = Color.White,
     labelColor: Color = Color.Black,
+    onClick: () -> Unit = {},
 ) {
     Button(
         modifier = Modifier.fillMaxWidth(),
@@ -23,7 +24,7 @@ fun OptionButton(
                 containerColor = backgroundColor,
                 contentColor = labelColor,
             ),
-        onClick = {},
+        onClick = { onClick() },
         elevation = ButtonDefaults.buttonElevation(defaultElevation = 12.dp),
     ) { Text(text = text) }
 }

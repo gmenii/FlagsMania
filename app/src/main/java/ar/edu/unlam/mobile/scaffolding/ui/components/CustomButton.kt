@@ -14,7 +14,10 @@ import androidx.compose.ui.res.colorResource
 import ar.edu.unlam.mobile.scaffolding.R
 
 @Composable
-fun CustomButton(text: String) {
+fun CustomButton(
+    text: String,
+    onClick: () -> Unit,
+) {
     Button(
         modifier =
             Modifier
@@ -35,7 +38,7 @@ fun CustomButton(text: String) {
             ButtonDefaults.buttonColors(
                 containerColor = Color.Transparent,
             ),
-        onClick = {},
+        onClick = onClick,
         // elevation = ButtonDefaults.buttonElevation(defaultElevation = 12.dp)
     ) { Text(text = text) }
 }
