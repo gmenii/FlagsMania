@@ -8,12 +8,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
@@ -28,84 +26,107 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import ar.edu.unlam.mobile.scaffolding.R
 
 @Composable
-fun FlagCardGame(flag: Int, pts: Int = 0, actualCard: Int = 0, modifier: Modifier) {
+fun FlagCardGame(
+    flag: Int,
+    pts: Int = 0,
+    actualCard: Int = 0,
+    modifier: Modifier,
+) {
     Column(modifier.offset(y = (-50).dp)) {
-        Row(
-            modifier = modifier
-                .fillMaxWidth()
-                .offset(y = 50.dp)
-                .zIndex(1f),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            //Reemplazar Box por futuro componente temporizador
-            Box(
-                modifier = Modifier
-                    .height(85.dp)
-                    .width(85.dp)
-                    .padding(12.dp)
-                    .border(4.dp, Color(0xFFC4007A), CircleShape),
-                contentAlignment = Alignment.Center,
-            ) {
-                Text(
-                    text = "3",
-                    color = Color(0xFFC4007A),
-                    fontSize = 28.sp,
-                    fontWeight = FontWeight.ExtraBold
-                )
-            }
-        }
+        CounterHolder(modifier)
         ElevatedCard(
             elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
             shape = RoundedCornerShape(16.dp),
-            modifier = modifier
-                .padding(horizontal = 36.dp, vertical = 10.dp)
-                .fillMaxWidth()
+            modifier =
+                modifier
+                    .padding(horizontal = 36.dp, vertical = 10.dp)
+                    .fillMaxWidth(),
         ) {
-
             Row(
-                modifier = modifier
-                    .padding(top = 12.dp)
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-                horizontalArrangement = Arrangement.End
+                modifier =
+                    modifier
+                        .padding(top = 12.dp)
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
+                horizontalArrangement = Arrangement.End,
             ) {
                 Text(
-                    text = "${actualCard.toString()}/10",
+                    text = "$actualCard/10",
                     color = Color(0xFFC4007A),
                     fontSize = 16.sp,
-                    fontWeight = FontWeight.ExtraBold
+                    fontWeight = FontWeight.ExtraBold,
                 )
             }
             Column(
-                modifier = modifier
-                    .padding(16.dp)
-                    .wrapContentHeight()
+                modifier =
+                    modifier
+                        .padding(16.dp)
+                        .wrapContentHeight(),
             ) {
                 Image(
                     painter = painterResource(id = flag),
                     contentDescription = "Bandera",
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .height(120.dp)
-                        .clip(RoundedCornerShape(8.dp))
+                    modifier =
+                        modifier
+                            .fillMaxWidth()
+                            .height(120.dp)
+                            .clip(RoundedCornerShape(8.dp)),
                 )
                 Spacer(modifier = modifier.height(16.dp))
 
                 // Points text
                 Text(
-                    text = "${pts.toString()}pts.",
+                    text = "$pts pts.",
                     color = Color(0xFFC4007A),
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Medium,
-                    modifier = modifier.align(Alignment.CenterHorizontally)
+                    modifier = modifier.align(Alignment.CenterHorizontally),
                 )
             }
         }
     }
+}
 
+@Composable
+fun CounterHolder(modifier: Modifier) {
+    Row(
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .offset(y = 50.dp)
+                .zIndex(1f),
+        horizontalArrangement = Arrangement.Center,
+    ) {
+        // Reemplazar Box por futuro componente temporizador
+        Box(
+            modifier =
+                Modifier
+                    .height(85.dp)
+                    .width(85.dp)
+                    .padding(12.dp)
+                    .background(Color.White, CircleShape)
+                    .border(4.dp, Color(0xFFC4007A), CircleShape),
+            contentAlignment = Alignment.Center,
+        ) {
+            Text(
+                text = "5",
+                color = Color(0xFFC4007A),
+                fontSize = 28.sp,
+                fontWeight = FontWeight.ExtraBold,
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun FlagCardGamePreview() {
+    FlagCardGame(flag = R.drawable.arg_flag, pts = 100, actualCard = 3, Modifier)
 }

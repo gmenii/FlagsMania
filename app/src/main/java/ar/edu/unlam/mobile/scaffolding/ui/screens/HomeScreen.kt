@@ -24,13 +24,13 @@ fun HomeScreen(
         }
 
         is HelloMessageUIState.Success -> {
-            //Greeting(helloState.message, modifier)
+            // Greeting(helloState.message, modifier)
         }
 
         is HelloMessageUIState.Error -> {
             // Error
         }
     }
-    //CustomButton(text = "Argentina")
+    // CustomButton(text = "Argentina")
     FlagCardGame(flag = R.drawable.arg_flag, pts = 100, actualCard = 3, Modifier)
 }
