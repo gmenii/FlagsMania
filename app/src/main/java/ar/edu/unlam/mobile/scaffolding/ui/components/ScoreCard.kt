@@ -1,0 +1,130 @@
+package ar.edu.unlam.mobile.scaffolding.ui.components
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
+import ar.edu.unlam.mobile.scaffolding.R
+
+@Composable
+fun ScoreCard() {
+    Box(
+        contentAlignment = Alignment.TopCenter,
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(20.dp),
+    ) {
+        // Círculo flotante
+        Box(
+            modifier =
+                Modifier
+                    .size(70.dp)
+                    .clip(CircleShape)
+                    .background(
+                        brush =
+                            Brush
+                                .verticalGradient(
+                                    listOf(
+                                        Color(0xFFE4A82B),
+                                        Color(0xFFC4007A),
+                                    ),
+                                ),
+                    )
+                    .zIndex(1f),
+        ) {
+            Box(modifier = Modifier.size(70.dp).clip(CircleShape)) {
+                Box(
+                    modifier =
+                        Modifier
+                            .size(60.dp)
+                            .clip(CircleShape)
+                            .background(Color(0xFFFFFFFF))
+                            .align(Alignment.Center),
+                )
+                Image(
+                    painter = painterResource(id = R.drawable.avatar_1),
+                    contentDescription = "Avatar",
+                    modifier = Modifier.size(60.dp).clip(CircleShape).align(Alignment.Center),
+                )
+            }
+        }
+        // Tarjeta
+
+        ElevatedCard(
+            elevation =
+                CardDefaults.cardElevation(
+                    defaultElevation = 6.dp,
+                ),
+            colors =
+                CardDefaults.cardColors(
+                    containerColor = Color(0xFFFFFFFF),
+                ),
+            shape = RoundedCornerShape(16.dp),
+            modifier =
+                Modifier
+                    .padding(top = 30.dp)
+                    .fillMaxWidth()
+                    .height(200.dp)
+                    .align(Alignment.TopCenter),
+        ) {
+            Column(
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .padding(30.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    Column {
+                        Text(text = "Banderas correctas")
+                        Spacer(modifier = Modifier.height(15.dp))
+                        Text(text = "Banderas incorrectas")
+                        Spacer(modifier = Modifier.height(15.dp))
+                        Text(text = "Puntos totales")
+                    }
+                    Column {
+                        Text(text = "9/10")
+                        Spacer(modifier = Modifier.height(15.dp))
+                        Text(text = "1/10")
+                        Spacer(modifier = Modifier.height(15.dp))
+                        Text(text = "200pts")
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFE0E0E0)
+@Composable
+fun ScoreCardPreview() {
+    ScoreCard()
+}
