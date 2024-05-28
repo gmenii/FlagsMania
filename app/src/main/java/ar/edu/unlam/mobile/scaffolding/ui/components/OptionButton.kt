@@ -1,6 +1,7 @@
 package ar.edu.unlam.mobile.scaffolding.ui.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -20,7 +21,7 @@ fun OptionButton(
     onClick: () -> Unit = {},
 ) {
     Button(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().padding(4.dp),
         colors =
             ButtonDefaults.buttonColors(
                 containerColor = backgroundColor,
@@ -28,7 +29,14 @@ fun OptionButton(
             ),
         onClick = { onClick() },
         elevation = ButtonDefaults.buttonElevation(defaultElevation = 12.dp),
-    ) { Text(text = text, fontFamily = AppFont.Quicksand, fontWeight = FontWeight.Bold) }
+    ) {
+        Text(
+            modifier = Modifier.padding(6.dp),
+            text = text,
+            fontFamily = AppFont.Quicksand,
+            fontWeight = FontWeight.Bold,
+        )
+    }
 }
 
 @Preview(showBackground = true)
