@@ -45,6 +45,7 @@ fun FlagCardGame(
         ElevatedCard(
             elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
             shape = RoundedCornerShape(16.dp),
+            colors = CardDefaults.cardColors(containerColor = Color(0xFFECECEC)),
             modifier =
                 modifier
                     .padding(horizontal = 36.dp, vertical = 10.dp)
@@ -62,7 +63,7 @@ fun FlagCardGame(
                     text = "$actualCard/10",
                     color = Color(0xFFC4007A),
                     fontFamily = AppFont.Quicksand,
-                    fontSize = 16.sp,
+                    fontSize = 18.sp,
                     fontWeight = FontWeight.ExtraBold,
                 )
             }
@@ -87,9 +88,9 @@ fun FlagCardGame(
                 Text(
                     text = "$pts pts.",
                     color = Color(0xFFC4007A),
-                    fontSize = 14.sp,
+                    fontSize = 16.sp,
                     fontFamily = AppFont.Quicksand,
-                    fontWeight = FontWeight.Medium,
+                    fontWeight = FontWeight.Bold,
                     modifier = modifier.align(Alignment.CenterHorizontally),
                 )
             }
@@ -103,7 +104,7 @@ fun CounterHolder(modifier: Modifier) {
         modifier =
             modifier
                 .fillMaxWidth()
-                .offset(y = -30.dp)
+                .offset(y = (-30).dp)
                 .zIndex(1f),
         horizontalArrangement = Arrangement.Center,
     ) {
