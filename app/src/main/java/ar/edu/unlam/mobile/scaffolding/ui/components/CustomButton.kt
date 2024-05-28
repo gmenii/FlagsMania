@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.font.FontWeight
 import ar.edu.unlam.mobile.scaffolding.R
 import ar.edu.unlam.mobile.scaffolding.ui.theme.AppFont
 
@@ -41,5 +42,5 @@ fun CustomButton(
             ),
         onClick = onClick,
         // elevation = ButtonDefaults.buttonElevation(defaultElevation = 12.dp)
-    ) { Text(text = text, fontFamily = AppFont.Quicksand) }
+    ) { Text(text = text, fontFamily = AppFont.Quicksand, fontWeight = FontWeight.Bold) }
 }
