@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -44,7 +43,7 @@ fun ScoreCard() {
                 .padding(20.dp),
     ) {
         // Círculo flotante
-        Column(modifier = Modifier.offset(y = -30.dp).zIndex(1f)) {
+        Column(modifier = Modifier.zIndex(1f)) {
             Avatar()
         }
 
@@ -62,7 +61,7 @@ fun ScoreCard() {
             shape = RoundedCornerShape(16.dp),
             modifier =
                 Modifier
-                    .padding(top = 30.dp)
+                    .padding(top = 50.dp)
                     .fillMaxWidth()
                     .height(200.dp)
                     .align(Alignment.TopCenter),
@@ -78,7 +77,7 @@ fun CardContent() {
         modifier =
             Modifier
                 .fillMaxSize()
-                .padding(30.dp),
+                .padding(30.dp, 60.dp, 30.dp, 40.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
@@ -87,18 +86,66 @@ fun CardContent() {
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Column {
-                Text(text = "Banderas correctas", style = TextStyle(fontSize = 16.sp,  fontFamily = AppFont.Quicksand, fontWeight = FontWeight.Bold))
+                Text(
+                    text = "Banderas correctas",
+                    style =
+                        TextStyle(
+                            fontSize = 16.sp,
+                            fontFamily = AppFont.Quicksand,
+                            fontWeight = FontWeight.Bold,
+                        ),
+                )
                 Spacer(modifier = Modifier.height(15.dp))
-                Text(text = "Banderas incorrectas", style = TextStyle(fontSize = 16.sp,  fontFamily = AppFont.Quicksand, fontWeight = FontWeight.Bold))
+                Text(
+                    text = "Banderas incorrectas",
+                    style =
+                        TextStyle(
+                            fontSize = 16.sp,
+                            fontFamily = AppFont.Quicksand,
+                            fontWeight = FontWeight.Bold,
+                        ),
+                )
                 Spacer(modifier = Modifier.height(15.dp))
-                Text(text = "Puntos totales", style = TextStyle(fontSize = 16.sp,  fontFamily = AppFont.Quicksand, fontWeight = FontWeight.Bold))
+                Text(
+                    text = "Puntos totales",
+                    style =
+                        TextStyle(
+                            fontSize = 16.sp,
+                            fontFamily = AppFont.Quicksand,
+                            fontWeight = FontWeight.Bold,
+                        ),
+                )
             }
             Column {
-                Text(text = "9/10", style = TextStyle(fontSize = 16.sp,  fontFamily = AppFont.Quicksand, fontWeight = FontWeight.Bold))
+                Text(
+                    text = "9/10",
+                    style =
+                        TextStyle(
+                            fontSize = 16.sp,
+                            fontFamily = AppFont.Quicksand,
+                            fontWeight = FontWeight.Bold,
+                        ),
+                )
                 Spacer(modifier = Modifier.height(15.dp))
-                Text(text = "1/10", style = TextStyle(fontSize = 16.sp,  fontFamily = AppFont.Quicksand, fontWeight = FontWeight.Bold))
+                Text(
+                    text = "1/10",
+                    style =
+                        TextStyle(
+                            fontSize = 16.sp,
+                            fontFamily = AppFont.Quicksand,
+                            fontWeight = FontWeight.Bold,
+                        ),
+                )
                 Spacer(modifier = Modifier.height(15.dp))
-                Text(text = "200pts", style = TextStyle(fontSize = 16.sp,  fontFamily = AppFont.Quicksand, fontWeight = FontWeight.Bold))
+                Text(
+                    text = "200pts",
+                    style =
+                        TextStyle(
+                            fontSize = 16.sp,
+                            fontFamily = AppFont.Quicksand,
+                            fontWeight = FontWeight.Bold,
+                        ),
+                )
             }
         }
     }
@@ -109,7 +156,7 @@ fun Avatar() {
     Box(
         modifier =
             Modifier
-                .size(110.dp)
+                .size(100.dp)
                 .clip(CircleShape)
                 .background(
                     brush =
@@ -126,13 +173,13 @@ fun Avatar() {
         Box(
             modifier =
                 Modifier
-                    .size(110.dp)
+                    .size(100.dp)
                     .clip(CircleShape),
         ) {
             Box(
                 modifier =
                     Modifier
-                        .size(100.dp)
+                        .size(90.dp)
                         .clip(CircleShape)
                         .background(Color(0xFFFFFFFF))
                         .align(Alignment.Center),
@@ -142,7 +189,7 @@ fun Avatar() {
                 contentDescription = "Avatar",
                 modifier =
                     Modifier
-                        .size(100.dp)
+                        .size(90.dp)
                         .clip(CircleShape)
                         .align(Alignment.Center),
             )
