@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import ar.edu.unlam.mobile.scaffolding.R
+import ar.edu.unlam.mobile.scaffolding.ui.theme.AppFont
 
 @Composable
 fun FlagCardGame(
@@ -60,6 +61,7 @@ fun FlagCardGame(
                 Text(
                     text = "$actualCard/10",
                     color = Color(0xFFC4007A),
+                    fontFamily = AppFont.Quicksand,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.ExtraBold,
                 )
@@ -86,6 +88,7 @@ fun FlagCardGame(
                     text = "$pts pts.",
                     color = Color(0xFFC4007A),
                     fontSize = 14.sp,
+                    fontFamily = AppFont.Quicksand,
                     fontWeight = FontWeight.Medium,
                     modifier = modifier.align(Alignment.CenterHorizontally),
                 )
@@ -119,6 +122,7 @@ fun CounterHolder(modifier: Modifier) {
                 text = "5",
                 color = Color(0xFFC4007A),
                 fontSize = 28.sp,
+                fontFamily = AppFont.Quicksand,
                 fontWeight = FontWeight.ExtraBold,
             )
         }

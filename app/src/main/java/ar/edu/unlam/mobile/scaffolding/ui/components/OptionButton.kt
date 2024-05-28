@@ -7,8 +7,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import ar.edu.unlam.mobile.scaffolding.ui.theme.AppFont
 
 @Composable
 fun OptionButton(
@@ -26,7 +28,7 @@ fun OptionButton(
             ),
         onClick = { onClick() },
         elevation = ButtonDefaults.buttonElevation(defaultElevation = 12.dp),
-    ) { Text(text = text) }
+    ) { Text(text = text, fontFamily = AppFont.Quicksand, fontWeight = FontWeight.Bold) }
 }
 
 @Preview(showBackground = true)
@@ -38,11 +40,11 @@ fun OptionButtonPreview() {
 @Preview(showBackground = true)
 @Composable
 fun SuccessOptionButtonPreview() {
-    OptionButton("Argentina", Color.Green, Color.Black)
+    OptionButton("Argentina", Color.Green, Color.White)
 }
 
 @Preview(showBackground = true)
 @Composable
 fun FailedOptionButtonPreview() {
-    OptionButton("Argentina", Color.Red, Color.Black)
+    OptionButton("Argentina", Color.Red, Color.White)
 }

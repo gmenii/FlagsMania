@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import ar.edu.unlam.mobile.scaffolding.R
+import ar.edu.unlam.mobile.scaffolding.ui.theme.AppFont
 
 @Composable
 fun ScoreCard() {
@@ -86,18 +87,18 @@ fun CardContent() {
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Column {
-                Text(text = "Banderas correctas", style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold))
+                Text(text = "Banderas correctas", style = TextStyle(fontSize = 16.sp,  fontFamily = AppFont.Quicksand, fontWeight = FontWeight.Bold))
                 Spacer(modifier = Modifier.height(15.dp))
-                Text(text = "Banderas incorrectas", style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold))
+                Text(text = "Banderas incorrectas", style = TextStyle(fontSize = 16.sp,  fontFamily = AppFont.Quicksand, fontWeight = FontWeight.Bold))
                 Spacer(modifier = Modifier.height(15.dp))
-                Text(text = "Puntos totales", style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold))
+                Text(text = "Puntos totales", style = TextStyle(fontSize = 16.sp,  fontFamily = AppFont.Quicksand, fontWeight = FontWeight.Bold))
             }
             Column {
-                Text(text = "9/10", style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold))
+                Text(text = "9/10", style = TextStyle(fontSize = 16.sp,  fontFamily = AppFont.Quicksand, fontWeight = FontWeight.Bold))
                 Spacer(modifier = Modifier.height(15.dp))
-                Text(text = "1/10", style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold))
+                Text(text = "1/10", style = TextStyle(fontSize = 16.sp,  fontFamily = AppFont.Quicksand, fontWeight = FontWeight.Bold))
                 Spacer(modifier = Modifier.height(15.dp))
-                Text(text = "200pts", style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold))
+                Text(text = "200pts", style = TextStyle(fontSize = 16.sp,  fontFamily = AppFont.Quicksand, fontWeight = FontWeight.Bold))
             }
         }
     }
