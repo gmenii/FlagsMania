@@ -34,7 +34,7 @@ fun GameClassicResultScreen(controller: NavHostController) {
             GradientComponent(400)
 
             Column(verticalArrangement = Arrangement.SpaceBetween) {
-                Spacer(modifier = Modifier.padding(70.dp))
+                Spacer(modifier = Modifier.padding(50.dp))
                 Box(
                     modifier =
                         Modifier
@@ -46,7 +46,7 @@ fun GameClassicResultScreen(controller: NavHostController) {
                     )
                 }
 
-                Spacer(modifier = Modifier.padding(24.dp))
+                Spacer(modifier = Modifier.padding(15.dp))
 
                 ScoreCard()
             }
@@ -66,9 +66,15 @@ fun GameClassicResultScreen(controller: NavHostController) {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                CustomButton(text = "Volver a jugar", onClick = {controller.navigate(NavHostRouterPaths.GAME_CLASSIC.route)})
+                CustomButton(
+                    text = "Volver a jugar",
+                    onClick = { controller.navigate(NavHostRouterPaths.GAME_CLASSIC.route) },
+                )
                 Spacer(modifier = Modifier.height(16.dp))
-                CustomButton(text = "Menu principal", onClick = {controller.navigate(NavHostRouterPaths.GAME_CLASSIC.route)})
+                CustomButton(
+                    text = "Menu principal",
+                    onClick = { controller.navigate(NavHostRouterPaths.GAME_CLASSIC.route) },
+                )
             }
         }
     }
