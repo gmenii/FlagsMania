@@ -34,7 +34,7 @@ import ar.edu.unlam.mobile.scaffolding.R
 import ar.edu.unlam.mobile.scaffolding.ui.theme.AppFont
 
 @Composable
-fun ScoreCard() {
+fun ScoreCard(counter: Int?) {
     Box(
         contentAlignment = Alignment.TopCenter,
         modifier =
@@ -66,13 +66,13 @@ fun ScoreCard() {
                     .height(200.dp)
                     .align(Alignment.TopCenter),
         ) {
-            CardContent()
+            CardContent(counter)
         }
     }
 }
 
 @Composable
-fun CardContent() {
+fun CardContent(counter: Int?) {
     Column(
         modifier =
             Modifier
@@ -138,7 +138,7 @@ fun CardContent() {
                 )
                 Spacer(modifier = Modifier.height(15.dp))
                 Text(
-                    text = "200pts",
+                    text = "${counter}pts",
                     style =
                         TextStyle(
                             fontSize = 16.sp,
@@ -200,5 +200,5 @@ fun Avatar() {
 @Preview(showBackground = true, backgroundColor = 0xFFE0E0E0)
 @Composable
 fun ScoreCardPreview() {
-    ScoreCard()
+    ScoreCard(100)
 }

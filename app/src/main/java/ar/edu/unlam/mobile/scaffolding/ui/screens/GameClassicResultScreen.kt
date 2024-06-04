@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
 import ar.edu.unlam.mobile.scaffolding.R
@@ -24,7 +25,10 @@ import ar.edu.unlam.mobile.scaffolding.ui.components.GradientComponent
 import ar.edu.unlam.mobile.scaffolding.ui.components.ScoreCard
 
 @Composable
-fun GameClassicResultScreen(controller: NavHostController) {
+fun GameClassicResultScreen(
+    controller: NavHostController,
+    viewModel: GameClassicViewModel = hiltViewModel(),
+) {
     Column(
         modifier =
             Modifier
@@ -48,7 +52,7 @@ fun GameClassicResultScreen(controller: NavHostController) {
 
                 Spacer(modifier = Modifier.padding(15.dp))
 
-                ScoreCard()
+                ScoreCard(viewModel.points)
             }
         }
 

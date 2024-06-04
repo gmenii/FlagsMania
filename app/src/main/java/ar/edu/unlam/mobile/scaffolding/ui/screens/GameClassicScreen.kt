@@ -14,6 +14,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
 import ar.edu.unlam.mobile.scaffolding.R
@@ -22,7 +23,10 @@ import ar.edu.unlam.mobile.scaffolding.ui.components.GradientComponent
 import ar.edu.unlam.mobile.scaffolding.ui.components.OptionButton
 
 @Composable
-fun GameClassicScreen(controller: NavHostController) {
+fun GameClassicScreen(
+    controller: NavHostController,
+    viewModel: GameClassicViewModel = hiltViewModel(),
+) {
     Column {
         Box {
             GradientComponent(250)
@@ -42,12 +46,15 @@ fun GameClassicScreen(controller: NavHostController) {
 
                 Spacer(modifier = Modifier.padding(24.dp))
 
-                FlagCardGame(flag = R.drawable.arg_flag, pts = 100, actualCard = 3, Modifier)
+                FlagCardGame(flag = R.drawable.arg_flag, pts = viewModel.points, actualCard = 3, Modifier)
             }
         }
 
         Column(modifier = Modifier.padding(16.dp)) {
-            QuestionOptions(onClick = { controller.navigate(NavHostRouterPaths.GAME_RESULT.route) })
+            QuestionOptions(onClick = {
+                viewModel.points += 1
+                controller.navigate(NavHostRouterPaths.GAME_RESULT.route)
+            })
         }
     }
 }
