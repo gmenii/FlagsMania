@@ -14,6 +14,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
 import ar.edu.unlam.mobile.scaffolding.R
@@ -22,7 +23,10 @@ import ar.edu.unlam.mobile.scaffolding.ui.components.GradientComponent
 import ar.edu.unlam.mobile.scaffolding.ui.components.OptionButton
 
 @Composable
-fun GameClassicScreen(controller: NavHostController) {
+fun GameClassicScreen(
+    controller: NavHostController,
+    viewModel: HomeViewModel = hiltViewModel(),
+) {
     Column {
         Box {
             GradientComponent(250)
