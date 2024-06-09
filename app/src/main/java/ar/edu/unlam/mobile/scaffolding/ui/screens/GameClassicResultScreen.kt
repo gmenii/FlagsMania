@@ -1,5 +1,6 @@
 package ar.edu.unlam.mobile.scaffolding.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -52,6 +53,7 @@ fun GameClassicResultScreen(
 
                 Spacer(modifier = Modifier.padding(15.dp))
 
+                Log.d("Puntos", viewModel.pts.toString())
                 ScoreCard(viewModel.pts)
             }
         }

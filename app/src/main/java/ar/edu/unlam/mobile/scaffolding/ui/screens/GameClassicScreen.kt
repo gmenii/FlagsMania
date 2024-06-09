@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -54,7 +56,6 @@ fun GameClassicScreen(
         Column(modifier = Modifier.padding(16.dp)) {
             QuestionOptions(onClick = {
                 viewModel.addPts(100)
-
                 if (viewModel.actualCard == 10) {
                     controller.navigate(NavHostRouterPaths.GAME_RESULT.route)
                 } else {
