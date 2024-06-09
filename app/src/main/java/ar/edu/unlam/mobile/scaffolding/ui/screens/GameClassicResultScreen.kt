@@ -52,7 +52,7 @@ fun GameClassicResultScreen(
 
                 Spacer(modifier = Modifier.padding(15.dp))
 
-                ScoreCard(viewModel.points)
+                ScoreCard(viewModel.pts)
             }
         }
 

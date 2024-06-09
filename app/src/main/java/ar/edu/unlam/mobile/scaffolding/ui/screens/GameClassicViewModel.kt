@@ -8,11 +8,19 @@ import javax.inject.Inject
 class GameClassicViewModel
     @Inject
     constructor() : ViewModel() {
-        // create a variable potins that persist across lifecycle
-//        val points by remember { mutableStateOf(0) }
-        var points = 0
+        var pts = 0
+        var actualCard = 1
 
         init {
-            println("==test==")
+            var pts = 0
+            var actualCard = 1
+        }
+
+        fun addPts(pts: Int) {
+            this.pts += pts
+        }
+
+        fun changeActualCard() {
+            this.actualCard++
         }
     }
