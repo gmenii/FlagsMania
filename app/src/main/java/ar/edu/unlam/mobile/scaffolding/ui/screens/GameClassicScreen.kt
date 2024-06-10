@@ -56,11 +56,13 @@ fun GameClassicScreen(
         Column(modifier = Modifier.padding(16.dp)) {
             QuestionOptions(onClick = {
                 viewModel.addPts(100)
+                viewModel.addCorrectAnswer()
                 if (viewModel.actualCard == 10) {
                     controller.navigate(NavHostRouterPaths.GAME_RESULT.route)
                 } else {
                     viewModel.changeActualCard()
                 }
+                viewModel.resetCounter()
             })
         }
     }
@@ -70,9 +72,9 @@ fun GameClassicScreen(
 fun QuestionOptions(onClick: () -> Unit = {}) {
     // simple button with a text inside "Argentina"
     OptionButton("Argentina", colorResource(R.color.success), Color.White, onClick = onClick)
-    OptionButton("Francia", colorResource(R.color.failed), Color.White, onClick = onClick)
-    OptionButton("España", onClick = onClick)
-    OptionButton("Italia", onClick = onClick)
+    OptionButton("Francia", colorResource(R.color.failed), Color.White, onClick = {})
+    OptionButton("España", onClick = {})
+    OptionButton("Italia", onClick = {})
 }
 
 @Preview(showBackground = true)
