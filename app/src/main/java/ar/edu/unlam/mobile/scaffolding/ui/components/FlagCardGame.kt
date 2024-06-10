@@ -108,7 +108,7 @@ fun CounterHolder(modifier: Modifier) {
                 .zIndex(1f),
         horizontalArrangement = Arrangement.Center,
     ) {
-        // Reemplazar Box por futuro componente temporizador
+        // TODO: Reemplazar Box por futuro componente temporizador
         Box(
             modifier =
                 Modifier

@@ -1,5 +1,6 @@
 package ar.edu.unlam.mobile.scaffolding.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -16,7 +17,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
 import ar.edu.unlam.mobile.scaffolding.R
 import ar.edu.unlam.mobile.scaffolding.ui.components.CustomButton
@@ -24,7 +27,13 @@ import ar.edu.unlam.mobile.scaffolding.ui.components.GradientComponent
 import ar.edu.unlam.mobile.scaffolding.ui.components.ScoreCard
 
 @Composable
-fun GameClassicResultScreen(controller: NavHostController) {
+fun GameClassicResultScreen(
+    controller: NavHostController,
+    viewModel: GameClassicViewModel = hiltViewModel(),
+) {
+    // Observa los datos del ViewModel
+    val points by viewModel::pts
+
     Column(
         modifier =
             Modifier
@@ -48,7 +57,11 @@ fun GameClassicResultScreen(controller: NavHostController) {
 
                 Spacer(modifier = Modifier.padding(15.dp))
 
-                ScoreCard()
+                Log.d("Puntos", points.toString())
+                ScoreCard(counter = points)
+
+                // Log.d("Puntos", viewModel.pts.toString())
+                // ScoreCard(viewModel.pts)
             }
         }
 
@@ -83,5 +96,7 @@ fun GameClassicResultScreen(controller: NavHostController) {
 @Preview(showBackground = true)
 @Composable
 fun GameClassicResultScreenPreview() {
-//    GameClassicResultScreen(
+// Necesitamos un controlador de navegación falso para la vista previa
+    val navController = rememberNavController()
+    GameClassicResultScreen(controller = navController)
 }
