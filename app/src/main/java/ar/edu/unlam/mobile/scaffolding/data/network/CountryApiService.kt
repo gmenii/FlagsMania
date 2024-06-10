@@ -3,6 +3,6 @@ import retrofit2.http.GET
 
 // DEFINIR LA INTERFACE DE LA API
 interface CountryApiService {
-    @GET("v3.1/all")
+    @GET("api/countries")
     suspend fun getAllCountries(): List<CountryResponse>
 }

@@ -2,11 +2,11 @@ package ar.edu.unlam.mobile.scaffolding.data.network
 
 // CLASE DATA PARA LA RESPUESTA DE LA API
 data class CountryResponse(
-    val name: Name,
+    val name: String,
     val capital: List<String>?,
     val region: String,
     val population: Int,
-    val flags: Flags,
+    val flag: String,
 )
 
 data class Name(

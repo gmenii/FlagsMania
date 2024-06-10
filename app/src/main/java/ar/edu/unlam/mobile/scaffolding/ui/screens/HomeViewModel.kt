@@ -56,7 +56,7 @@ class HomeViewModel
             viewModelScope.launch {
                 try {
                     countryRepository.getAllCountries().collect { countryList ->
-                        Log.d("HomeViewModel", "Received countries: $countryList") // Log message
+                        Log.d("HomeViewModel", "Received countries: ${countryList.size}") // Log message
                     }
                 } catch (e: Exception) {
                     Log.e("HomeViewModel", "Error fetching countries: ${e.message}") // Log error
