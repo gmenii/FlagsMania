@@ -10,17 +10,17 @@ class QuizGameTest {
         val quizGame = QuizGame(localQuestionRepository)
         val questions = quizGame.getQuestions()
 
-        assertEquals(3, questions.size)
+        assertEquals(10, questions.size)
     }
 
     @Test
     fun testMultipleChoiceQuestionFormat() {
         val expected =
             arrayListOf(
+                CountryOption("Canada", "ca_flag.png", "Ottawa"),
+                CountryOption("Spain", "es_flag.png", "Madrid"),
+                CountryOption("China", "cn_flag.png", "Beijing"),
                 CountryOption("USA", "us_flag.png", "Washington"),
-                CountryOption("France", "fr_flag.png", "Paris"),
-                CountryOption("Germany", "de_flag.png", "Berlin"),
-                CountryOption("Japan", "jp_flag.png", "Tokyo"),
             )
 
         val localQuestionRepository = LocalQuestionRepository()
@@ -33,8 +33,7 @@ class QuizGameTest {
 
     @Test
     fun testTrackCorrectAnswersAndCalculateScore() {
-        val localQuestionRepository = LocalQuestionRepository()
-        val quizGame = QuizGame(localQuestionRepository)
+        val quizGame = QuizGame(LocalQuestionRepository())
         quizGame.answerQuestion("Washington")
         quizGame.nextQuestion()
         quizGame.answerQuestion("Paris")
@@ -58,20 +57,23 @@ class QuizGameTest {
         val summary: Summary = quizGame.getSummary()
 
         assertEquals(2, summary.correctAnswers)
-        assertEquals(1, summary.incorrectAnswers)
-        assertEquals(3, summary.totalQuestions)
+        assertEquals(8, summary.incorrectAnswers)
+        assertEquals(10, summary.totalQuestions)
         assertEquals(20, summary.totalScore)
     }
 
     @Test
     fun testRandomize() {
-        val localQuestionRepository = LocalQuestionRepository()
-        val quizGame = QuizGame(localQuestionRepository)
+        val quizGame = QuizGame(LocalQuestionRepository(), ShuffleGameLogic())
         quizGame.randomizeQuestions()
         quizGame.getQuestions().forEach { gameQuestion ->
-            println("gameQuestion:${gameQuestion.correctAnswer.country}")
+            println(gameQuestion.correctAnswer.country)
             gameQuestion.options.forEach { option ->
-                println("option:$option")
+                if (option.correct) {
+                    println("[*] ${option.city}")
+                } else {
+                    println("[ ] ${option.city}")
+                }
             }
         }
     }
