@@ -40,7 +40,6 @@ class GameClassicViewModel
         }
 
         private fun fetchCountries() {
-            println("==fetchCountries==")
             viewModelScope.launch {
                 try {
                     countryRepository.getAllCountries().collect { countryList ->

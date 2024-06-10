@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
 import ar.edu.unlam.mobile.scaffolding.R
 import ar.edu.unlam.mobile.scaffolding.domain.CountryOption
 import ar.edu.unlam.mobile.scaffolding.ui.components.FlagCardGame
@@ -64,11 +65,11 @@ fun GameClassicScreen(
         Column(modifier = Modifier.padding(16.dp)) {
             QuestionOptions(viewModel.currentQuestion?.options, viewModel.showAnswer, viewModel.selectedCountry, onClick = {
 //                viewModel.addPts(100)
-                /*if (viewModel.actualCard == 10) {
+                if (viewModel.actualCard == 10) {
                     controller.navigate(NavHostRouterPaths.GAME_RESULT.route)
                 } else {
                     viewModel.changeActualCard()
-                }*/
+                }
                 viewModel.nextQuestion(it)
             })
         }
