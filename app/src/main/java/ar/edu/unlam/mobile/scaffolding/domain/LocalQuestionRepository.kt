@@ -2,6 +2,7 @@ package ar.edu.unlam.mobile.scaffolding.domain
 
 class LocalQuestionRepository : IQuestionRepository {
     override fun getAllOptions(): ArrayList<CountryOption> {
+        // @FIXME: modificar para que del listado completo las mezcle y tome 10.
         return arrayListOf(
             CountryOption("USA", "us_flag.png", "Washington"),
             CountryOption("France", "fr_flag.png", "Paris"),
