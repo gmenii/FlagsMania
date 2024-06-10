@@ -13,7 +13,7 @@ class QuizHelper {
         return questions.removeAt(index)
     }
 
-    fun selectRandomQuestion(questions: ArrayList<CountryQuestion>): CountryQuestion? {
+    fun selectRandomQuestion(questions: ArrayList<CountryOption>): CountryOption? {
         if (questions.isEmpty()) {
             return null
         }
@@ -21,5 +21,4 @@ class QuizHelper {
         val index = random.nextInt(questions.size)
         return questions.removeAt(index)
     }
-
 }

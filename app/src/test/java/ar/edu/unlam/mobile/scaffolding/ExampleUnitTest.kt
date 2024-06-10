@@ -1,8 +1,12 @@
 package ar.edu.unlam.mobile.scaffolding
 
-import ar.edu.unlam.mobile.scaffolding.domain.CountryQuestion
+import ar.edu.unlam.mobile.scaffolding.domain.CountryOption
+import ar.edu.unlam.mobile.scaffolding.domain.Game
+import ar.edu.unlam.mobile.scaffolding.domain.GameQuestion
 import ar.edu.unlam.mobile.scaffolding.domain.QuizHelper
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotNull
 import org.junit.Test
 
 /**
@@ -19,10 +23,19 @@ class ExampleUnitTest {
     @Test
     fun testSelectRandomQuestion() {
         val quizHelper = QuizHelper()
-        val questionsList = arrayListOf(
-            "Question 1", "Question 2", "Question 3", "Question 4", "Question 5",
-            "Question 6", "Question 7", "Question 8", "Question 9", "Question 10"
-        )
+        val questionsList =
+            arrayListOf(
+                "Question 1",
+                "Question 2",
+                "Question 3",
+                "Question 4",
+                "Question 5",
+                "Question 6",
+                "Question 7",
+                "Question 8",
+                "Question 9",
+                "Question 10",
+            )
         val selectedQuestions = mutableSetOf<String>()
 
         // Select 10 random questions from the list
@@ -40,19 +53,8 @@ class ExampleUnitTest {
     @Test
     fun testSelectRandomCountryQuestion() {
         val quizHelper = QuizHelper()
-        val questionsList = arrayListOf(
-            CountryQuestion("USA", "us_flag.png", "Washington"),
-            CountryQuestion("France", "fr_flag.png", "Paris"),
-            CountryQuestion("Germany", "de_flag.png", "Berlin"),
-            CountryQuestion("Japan", "jp_flag.png", "Tokyo"),
-            CountryQuestion("Australia", "au_flag.png", "Sydney"),
-            CountryQuestion("Brazil", "br_flag.png", "Brasilia"),
-            CountryQuestion("Italy", "it_flag.png", "Rome"),
-            CountryQuestion("Canada", "ca_flag.png", "Ottawa"),
-            CountryQuestion("Spain", "es_flag.png", "Madrid"),
-            CountryQuestion("China", "cn_flag.png", "Beijing")
-        )
-        val selectedQuestions = mutableSetOf<CountryQuestion>()
+        val questionsList = getCountryQuestion()
+        val selectedQuestions = mutableSetOf<CountryOption>()
 
         // Select 10 random questions from the list
         repeat(10) {
@@ -69,42 +71,58 @@ class ExampleUnitTest {
     @Test
     fun testSelectRandomCountryQuestionAndOptions() {
         val quizHelper = QuizHelper()
-        val questionsList = arrayListOf(
-            CountryQuestion("USA", "us_flag.png", "Washington"),
-            CountryQuestion("France", "fr_flag.png", "Paris"),
-            CountryQuestion("Germany", "de_flag.png", "Berlin"),
-            CountryQuestion("Japan", "jp_flag.png", "Tokyo"),
-            CountryQuestion("Australia", "au_flag.png", "Sydney"),
-            CountryQuestion("Brazil", "br_flag.png", "Brasilia"),
-            CountryQuestion("Italy", "it_flag.png", "Rome"),
-            CountryQuestion("Canada", "ca_flag.png", "Ottawa"),
-            CountryQuestion("Spain", "es_flag.png", "Madrid"),
-            CountryQuestion("China", "cn_flag.png", "Beijing")
-        )
+        val questionsList = getCountryQuestion()
+        val game = Game()
 
         // Select the correct answer
         val correctAnswer = quizHelper.selectRandomQuestion(questionsList)
-        assertNotNull(correctAnswer)
+        if (correctAnswer != null) {
+            correctAnswer.correct = true
 
-        // Select 3 incorrect options
-        val incorrectOptions = arrayListOf<CountryQuestion>()
-        repeat(3) {
-            val incorrectOption = quizHelper.selectRandomQuestion(questionsList)
-            assertNotNull(incorrectOption)
-            incorrectOptions.add(incorrectOption!!)
-        }
-
-        // Create quiz question with correct and incorrect options
-        val quizQuestion = "What is the capital of ${correctAnswer!!.country}?"
-        var options: List<CountryQuestion> = (arrayListOf(correctAnswer) + incorrectOptions).shuffled()
-        println("Quiz Question: $quizQuestion")
-        options.forEachIndexed { index, option ->
-            if (option.city == correctAnswer.city) {
-                println("${"ABCD"[index]}. ${option.city} **")
-            } else {
-                println("${"ABCD"[index]}. ${option.city}")
+            // Select 3 incorrect options
+            val incorrectOptions = arrayListOf<CountryOption>()
+            val defaultIncorrectOptionsNumber = 3
+            repeat(defaultIncorrectOptionsNumber) {
+                quizHelper.selectRandomQuestion(questionsList)?.let { option ->
+                    assertNotNull(option)
+                    incorrectOptions.add(option)
+                }
             }
 
+            // Create quiz question with correct and incorrect options
+            val options = (arrayListOf(correctAnswer) + incorrectOptions).shuffled()
+            game.addQuestion(GameQuestion(correctAnswer, options))
+        }
+
+        game.getQuestions().forEach { gameQuestion ->
+            printQuestion(gameQuestion)
         }
     }
+
+    private fun printQuestion(game: GameQuestion) {
+        val stringBuffer = StringBuffer()
+        game.options.forEachIndexed { index, option ->
+            if (option.correct) {
+                stringBuffer.append("${"ABCD"[index]}. ${option.city} **\n")
+            } else {
+                stringBuffer.append("${"ABCD"[index]}. ${option.city}\n")
+            }
+        }
+        println("What is the capital of ${game.correctAnswer.country}")
+        println(stringBuffer.toString())
+    }
+
+    private fun getCountryQuestion() =
+        arrayListOf(
+            CountryOption("USA", "us_flag.png", "Washington"),
+            CountryOption("France", "fr_flag.png", "Paris"),
+            CountryOption("Germany", "de_flag.png", "Berlin"),
+            CountryOption("Japan", "jp_flag.png", "Tokyo"),
+            CountryOption("Australia", "au_flag.png", "Sydney"),
+            CountryOption("Brazil", "br_flag.png", "Brasilia"),
+            CountryOption("Italy", "it_flag.png", "Rome"),
+            CountryOption("Canada", "ca_flag.png", "Ottawa"),
+            CountryOption("Spain", "es_flag.png", "Madrid"),
+            CountryOption("China", "cn_flag.png", "Beijing"),
+        )
 }
