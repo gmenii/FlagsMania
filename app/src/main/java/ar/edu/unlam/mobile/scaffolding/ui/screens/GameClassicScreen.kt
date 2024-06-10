@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -14,7 +16,9 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
 import ar.edu.unlam.mobile.scaffolding.R
 import ar.edu.unlam.mobile.scaffolding.ui.components.FlagCardGame
@@ -22,7 +26,10 @@ import ar.edu.unlam.mobile.scaffolding.ui.components.GradientComponent
 import ar.edu.unlam.mobile.scaffolding.ui.components.OptionButton
 
 @Composable
-fun GameClassicScreen(controller: NavHostController) {
+fun GameClassicScreen(
+    controller: NavHostController,
+    viewModel: GameClassicViewModel = hiltViewModel(),
+) {
     Column {
         Box {
             GradientComponent(250)
@@ -42,12 +49,19 @@ fun GameClassicScreen(controller: NavHostController) {
 
                 Spacer(modifier = Modifier.padding(24.dp))
 
-                FlagCardGame(flag = R.drawable.arg_flag, pts = 100, actualCard = 3, Modifier)
+                FlagCardGame(flag = R.drawable.arg_flag, pts = viewModel.pts, actualCard = viewModel.actualCard, Modifier)
             }
         }
 
         Column(modifier = Modifier.padding(16.dp)) {
-            QuestionOptions(onClick = { controller.navigate(NavHostRouterPaths.GAME_RESULT.route) })
+            QuestionOptions(onClick = {
+                viewModel.addPts(100)
+                if (viewModel.actualCard == 10) {
+                    controller.navigate(NavHostRouterPaths.GAME_RESULT.route)
+                } else {
+                    viewModel.changeActualCard()
+                }
+            })
         }
     }
 }
@@ -64,5 +78,6 @@ fun QuestionOptions(onClick: () -> Unit = {}) {
 @Preview(showBackground = true)
 @Composable
 fun GameClassicScreenPreview() {
-//    GameClassicScreen()
+    val controller = rememberNavController()
+    GameClassicScreen(controller)
 }
