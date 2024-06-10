@@ -8,7 +8,7 @@ private const val DEFAULT_NUMBER_OF_INCORRECT_ANSWERS = 3
 class ShuffleGameLogic : IGameLogic {
     override fun process(allOptions: ArrayList<CountryOption>): MutableList<GameQuestion> {
         val questions = mutableListOf<GameQuestion>()
-        allOptions.forEach {
+        allOptions.take(10).forEach {
             val cloneQuestions = allOptions.clone() as ArrayList<CountryOption>
             val incorrectOptions = arrayListOf<CountryOption>()
             val correctOption = it.copy(correct = true)

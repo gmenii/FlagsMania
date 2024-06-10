@@ -2,13 +2,13 @@ package ar.edu.unlam.mobile.scaffolding.domain
 
 private const val DEFAULT_POINTS_PER_QUESTION = 10
 
-class QuizGame(questionRepository: IQuestionRepository, val gameLogic: IGameLogic = SequentialGameLogic()) {
+class QuizGame(optionArrayList: ArrayList<CountryOption>, val gameLogic: IGameLogic = SequentialGameLogic()) {
     private var questions = mutableListOf<GameQuestion>()
     private val answers = mutableMapOf<Int, Boolean>()
     private var questionIndex = 0
 
     init {
-        createQuestions(questionRepository.getAllOptions())
+        createQuestions(optionArrayList)
     }
 
     private fun createQuestions(allOptions: ArrayList<CountryOption>) {
@@ -17,14 +17,17 @@ class QuizGame(questionRepository: IQuestionRepository, val gameLogic: IGameLogi
 
     fun getQuestions(): List<GameQuestion> = questions
 
-    fun answerQuestion(optionSelected: String) {
+    fun getQuestion() = questions.getOrNull(questionIndex)
+
+    fun answerQuestion(optionSelected: String): Boolean {
         var correct = false
         questions.getOrNull(questionIndex)?.let { question ->
-            question.options.find { it.city == optionSelected }?.let { option ->
+            question.options.find { it.country == optionSelected }?.let { option ->
                 correct = option.correct
             }
         }
         answers[questionIndex] = correct
+        return correct
     }
 
     fun getCorrectAnswersCount(): Int = answers.values.filter { it }.size

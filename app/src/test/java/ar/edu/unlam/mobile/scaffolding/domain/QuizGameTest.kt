@@ -6,8 +6,7 @@ import org.junit.Test
 class QuizGameTest {
     @Test
     fun testRetrieveQuestions() {
-        val localQuestionRepository = LocalQuestionRepository()
-        val quizGame = QuizGame(localQuestionRepository)
+        val quizGame = QuizGame(LocalQuestionRepository().getAllOptions())
         val questions = quizGame.getQuestions()
 
         assertEquals(10, questions.size)
@@ -23,8 +22,7 @@ class QuizGameTest {
                 CountryOption("USA", "us_flag.png", "Washington"),
             )
 
-        val localQuestionRepository = LocalQuestionRepository()
-        val quizGame = QuizGame(localQuestionRepository)
+        val quizGame = QuizGame(LocalQuestionRepository().getAllOptions())
         val question: GameQuestion = quizGame.getQuestions()[0]
 
         assertEquals("USA", question.correctAnswer.country)
@@ -33,7 +31,7 @@ class QuizGameTest {
 
     @Test
     fun testTrackCorrectAnswersAndCalculateScore() {
-        val quizGame = QuizGame(LocalQuestionRepository())
+        val quizGame = QuizGame(LocalQuestionRepository().getAllOptions())
         quizGame.answerQuestion("Washington")
         quizGame.nextQuestion()
         quizGame.answerQuestion("Paris")
@@ -46,8 +44,7 @@ class QuizGameTest {
 
     @Test
     fun testSummaryOfResults() {
-        val localQuestionRepository = LocalQuestionRepository()
-        val quizGame = QuizGame(localQuestionRepository)
+        val quizGame = QuizGame(LocalQuestionRepository().getAllOptions())
         quizGame.answerQuestion("Washington")
         quizGame.nextQuestion()
         quizGame.answerQuestion("Paris")
@@ -64,7 +61,7 @@ class QuizGameTest {
 
     @Test
     fun testRandomize() {
-        val quizGame = QuizGame(LocalQuestionRepository(), ShuffleGameLogic())
+        val quizGame = QuizGame(LocalQuestionRepository().getAllOptions(), ShuffleGameLogic())
         quizGame.randomizeQuestions()
         quizGame.getQuestions().forEach { gameQuestion ->
             println(gameQuestion.correctAnswer.country)
