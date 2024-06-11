@@ -6,11 +6,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -34,15 +32,6 @@ fun GameClassicScreen(
         Box {
             GradientComponent(250)
 
-            Text(
-                text = viewModel.currentQuestion?.correctAnswer?.flag ?: "Argentina`s flag",
-                color = Color.White,
-                modifier =
-                    Modifier
-                        .align(Alignment.TopEnd)
-                        .padding(16.dp),
-            )
-
             Column(verticalArrangement = Arrangement.SpaceBetween) {
                 Spacer(modifier = Modifier.padding(24.dp))
                 Box(
@@ -58,20 +47,30 @@ fun GameClassicScreen(
 
                 Spacer(modifier = Modifier.padding(24.dp))
 
-                FlagCardGame(flag = R.drawable.arg_flag, pts = viewModel.pts, actualCard = viewModel.actualCard, Modifier)
+                FlagCardGame(
+                    pts = viewModel.pts,
+                    actualCard = viewModel.actualCard,
+                    flagURL = viewModel.currentQuestion?.correctAnswer?.flag ?: "Argentina",
+                    Modifier,
+                )
             }
         }
 
         Column(modifier = Modifier.padding(16.dp)) {
-            QuestionOptions(viewModel.currentQuestion?.options, viewModel.showAnswer, viewModel.selectedCountry, onClick = {
+            QuestionOptions(
+                viewModel.currentQuestion?.options,
+                viewModel.showAnswer,
+                viewModel.selectedCountry,
+                onClick = {
 //                viewModel.addPts(100)
-                if (viewModel.actualCard == 10) {
-                    controller.navigate(NavHostRouterPaths.GAME_RESULT.route)
-                } else {
-                    viewModel.changeActualCard()
-                }
-                viewModel.nextQuestion(it)
-            })
+                    if (viewModel.actualCard == 10) {
+                        controller.navigate(NavHostRouterPaths.GAME_RESULT.route)
+                    } else {
+                        viewModel.changeActualCard()
+                    }
+                    viewModel.nextQuestion(it)
+                },
+            )
         }
     }
 }
