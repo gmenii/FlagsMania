@@ -33,6 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import androidx.hilt.navigation.compose.hiltViewModel
 import ar.edu.unlam.mobile.scaffolding.R
 import ar.edu.unlam.mobile.scaffolding.ui.screens.GameClassicViewModel
 import ar.edu.unlam.mobile.scaffolding.ui.theme.AppFont
@@ -46,7 +47,7 @@ fun FlagCardGame(
     modifier: Modifier,
 ) {
     Box {
-        CounterHolder(modifier, GameClassicViewModel())
+        CounterHolder(modifier)
         ElevatedCard(
             elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
             shape = RoundedCornerShape(16.dp),
@@ -106,9 +107,9 @@ fun FlagCardGame(
 @Composable
 fun CounterHolder(
     modifier: Modifier,
-    viewModel: GameClassicViewModel,
+    viewModel: GameClassicViewModel = hiltViewModel(),
 ) {
-    val counter by viewModel.counter
+    val counter = viewModel.counter
 
     LaunchedEffect(counter) {
         while (counter >= 0) {
