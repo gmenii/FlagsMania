@@ -6,9 +6,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,6 +20,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
 import ar.edu.unlam.mobile.scaffolding.R
+import ar.edu.unlam.mobile.scaffolding.domain.CountryOption
 import ar.edu.unlam.mobile.scaffolding.ui.components.FlagCardGame
 import ar.edu.unlam.mobile.scaffolding.ui.components.GradientComponent
 import ar.edu.unlam.mobile.scaffolding.ui.components.OptionButton
@@ -33,6 +33,15 @@ fun GameClassicScreen(
     Column {
         Box {
             GradientComponent(250)
+
+            Text(
+                text = viewModel.currentQuestion?.correctAnswer?.flag ?: "Argentina`s flag",
+                color = Color.White,
+                modifier =
+                    Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(16.dp),
+            )
 
             Column(verticalArrangement = Arrangement.SpaceBetween) {
                 Spacer(modifier = Modifier.padding(24.dp))
@@ -54,27 +63,37 @@ fun GameClassicScreen(
         }
 
         Column(modifier = Modifier.padding(16.dp)) {
-            QuestionOptions(onClick = {
-                viewModel.addPts(100)
-                viewModel.addCorrectAnswer()
+            QuestionOptions(viewModel.currentQuestion?.options, viewModel.showAnswer, viewModel.selectedCountry, onClick = {
+//                viewModel.addPts(100)
                 if (viewModel.actualCard == 10) {
                     controller.navigate(NavHostRouterPaths.GAME_RESULT.route)
                 } else {
                     viewModel.changeActualCard()
                 }
-                viewModel.resetCounter()
+                viewModel.nextQuestion(it)
             })
         }
     }
 }
 
 @Composable
-fun QuestionOptions(onClick: () -> Unit = {}) {
-    // simple button with a text inside "Argentina"
-    OptionButton("Argentina", colorResource(R.color.success), Color.White, onClick = onClick)
-    OptionButton("Francia", colorResource(R.color.failed), Color.White, onClick = {})
-    OptionButton("España", onClick = {})
-    OptionButton("Italia", onClick = {})
+fun QuestionOptions(
+    optionList: List<CountryOption>?,
+    readyToShowAnswer: Boolean,
+    selectedCountry: String,
+    onClick: (String) -> Unit = {},
+) {
+    optionList?.forEach {
+        if (readyToShowAnswer && it.country == selectedCountry) {
+            var backgroundColor = colorResource(R.color.failed)
+            if (it.correct) {
+                backgroundColor = colorResource(R.color.success)
+            }
+            OptionButton(it.country, backgroundColor, onClick = onClick)
+        } else {
+            OptionButton(it.country, onClick = onClick)
+        }
+    }
 }
 
 @Preview(showBackground = true)

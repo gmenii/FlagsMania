@@ -1,23 +1,35 @@
 package ar.edu.unlam.mobile.scaffolding.ui.screens
 
-import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import ar.edu.unlam.mobile.scaffolding.data.network.CountryResponse
+import ar.edu.unlam.mobile.scaffolding.data.repository.CountryRepository
+import ar.edu.unlam.mobile.scaffolding.domain.CountryOption
+import ar.edu.unlam.mobile.scaffolding.domain.GameQuestion
+import ar.edu.unlam.mobile.scaffolding.domain.QuizGame
+import ar.edu.unlam.mobile.scaffolding.domain.ShuffleGameLogic
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class GameClassicViewModel
     @Inject
-    constructor() : ViewModel() {
+    constructor(private val countryRepository: CountryRepository) : ViewModel() {
+        var showAnswer by mutableStateOf(false)
+        var selectedCountry by mutableStateOf("")
         var pts by mutableStateOf(0)
         var actualCard by mutableStateOf(1)
-        var correctAnswers by mutableStateOf(0)
-        var wrongAnswers by mutableStateOf(0)
-        private val _counter = mutableStateOf(10)
-        val counter: State<Int> = _counter
+        var quizGame: QuizGame? = null
+        var currentQuestion: GameQuestion? by mutableStateOf(null)
+
+        init {
+            fetchCountries()
+        }
 
         fun addPts(pts: Int) {
             this.pts += pts
@@ -27,21 +39,53 @@ class GameClassicViewModel
             this.actualCard++
         }
 
-        fun addCorrectAnswer() {
-            this.correctAnswers++
+        private fun fetchCountries() {
+            viewModelScope.launch {
+                try {
+                    countryRepository.getAllCountries().collect { countryList ->
+                        println("==test ${countryList.size}==")
+
+                        val convertedCountries: ArrayList<CountryOption> = convertToArrayList(countryList)
+
+                        quizGame = QuizGame(convertedCountries, ShuffleGameLogic())
+                        quizGame?.randomizeQuestions()
+                    /*quizGame?.getQuestions()?.forEach { gameQuestion ->
+                        println(gameQuestion.correctAnswer.country)
+                        gameQuestion.options.forEach { option ->
+                            if (option.correct) {
+                                println("[*] ${option.city}")
+                            } else {
+                                println("[ ] ${option.city}")
+                            }
+                        }
+                    }*/
+                        currentQuestion = quizGame?.getQuestion()
+                    }
+                } catch (e: Exception) {
+                    println("==Error fetching countries: ${e.message}==")
+                }
+            }
         }
 
-        fun addWrongAnswer() {
-            this.wrongAnswers++
+        private fun convertToArrayList(countryList: List<CountryResponse>): ArrayList<CountryOption> {
+            val convertedCountries: ArrayList<CountryOption> = arrayListOf()
+
+            countryList.forEach {
+                convertedCountries.add(it.toCountryOption())
+            }
+            return convertedCountries
         }
 
-        fun resetCounter() {
-            _counter.value = 10
-        }
-
-        fun decrementCounter() {
-            if (_counter.value > 0) {
-                _counter.value--
+        fun nextQuestion(answer: String) {
+            showAnswer = true
+            selectedCountry = answer
+            quizGame?.answerQuestion(answer)
+            pts = quizGame?.calculateScore() ?: 0
+            // add a delay in courtine
+            viewModelScope.launch {
+                delay(500)
+                quizGame?.nextQuestion()
+                currentQuestion = quizGame?.getQuestion()
             }
         }
     }
