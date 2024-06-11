@@ -1,4 +1,10 @@
-package ar.edu.unlam.mobile.scaffolding.domain
+package ar.edu.unlam.mobile.scaffolding.domain.services
+
+import ar.edu.unlam.mobile.scaffolding.domain.models.CountryOption
+import ar.edu.unlam.mobile.scaffolding.domain.models.GameQuestion
+import ar.edu.unlam.mobile.scaffolding.domain.models.Summary
+import ar.edu.unlam.mobile.scaffolding.domain.usecases.IGameLogic
+import ar.edu.unlam.mobile.scaffolding.domain.usecases.SequentialGameLogic
 
 private const val DEFAULT_POINTS_PER_QUESTION = 10
 

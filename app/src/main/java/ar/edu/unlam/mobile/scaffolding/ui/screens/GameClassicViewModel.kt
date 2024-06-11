@@ -7,10 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ar.edu.unlam.mobile.scaffolding.data.network.CountryResponse
 import ar.edu.unlam.mobile.scaffolding.data.repository.CountryRepository
-import ar.edu.unlam.mobile.scaffolding.domain.CountryOption
-import ar.edu.unlam.mobile.scaffolding.domain.GameQuestion
-import ar.edu.unlam.mobile.scaffolding.domain.QuizGame
-import ar.edu.unlam.mobile.scaffolding.domain.ShuffleGameLogic
+import ar.edu.unlam.mobile.scaffolding.domain.models.CountryOption
+import ar.edu.unlam.mobile.scaffolding.domain.models.GameQuestion
+import ar.edu.unlam.mobile.scaffolding.domain.services.QuizGame
+import ar.edu.unlam.mobile.scaffolding.domain.usecases.ShuffleGameLogic
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

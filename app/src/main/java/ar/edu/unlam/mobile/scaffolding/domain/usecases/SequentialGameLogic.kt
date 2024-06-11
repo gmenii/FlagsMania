@@ -1,4 +1,7 @@
-package ar.edu.unlam.mobile.scaffolding.domain
+package ar.edu.unlam.mobile.scaffolding.domain.usecases
+
+import ar.edu.unlam.mobile.scaffolding.domain.models.CountryOption
+import ar.edu.unlam.mobile.scaffolding.domain.models.GameQuestion
 
 class SequentialGameLogic : IGameLogic {
     override fun process(allOptions: ArrayList<CountryOption>): MutableList<GameQuestion> {

@@ -1,9 +1,9 @@
 package ar.edu.unlam.mobile.scaffolding
 
-import ar.edu.unlam.mobile.scaffolding.domain.CountryOption
 import ar.edu.unlam.mobile.scaffolding.domain.Game
-import ar.edu.unlam.mobile.scaffolding.domain.GameQuestion
-import ar.edu.unlam.mobile.scaffolding.domain.QuizHelper
+import ar.edu.unlam.mobile.scaffolding.domain.models.CountryOption
+import ar.edu.unlam.mobile.scaffolding.domain.models.GameQuestion
+import ar.edu.unlam.mobile.scaffolding.domain.services.QuizHelper
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull

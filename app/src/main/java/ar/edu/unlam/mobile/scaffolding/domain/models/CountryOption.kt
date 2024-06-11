@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffolding.domain
+package ar.edu.unlam.mobile.scaffolding.domain.models
 
 data class CountryOption(
     val country: String,

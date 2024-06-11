@@ -1,5 +1,6 @@
-package ar.edu.unlam.mobile.scaffolding.domain
+package ar.edu.unlam.mobile.scaffolding.domain.services
 
+import ar.edu.unlam.mobile.scaffolding.domain.models.CountryOption
 import java.util.ArrayList
 import java.util.Random
 
