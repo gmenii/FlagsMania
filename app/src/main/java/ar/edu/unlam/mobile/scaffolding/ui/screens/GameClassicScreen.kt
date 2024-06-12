@@ -57,20 +57,16 @@ fun GameClassicScreen(
         }
 
         Column(modifier = Modifier.padding(16.dp)) {
-            QuestionOptions(
-                viewModel.currentQuestion?.options,
-                viewModel.showAnswer,
-                viewModel.selectedCountry,
-                onClick = {
-//                viewModel.addPts(100)
-                    if (viewModel.actualCard == 10) {
-                        controller.navigate(NavHostRouterPaths.GAME_RESULT.route)
-                    } else {
-                        viewModel.changeActualCard()
-                    }
-                    viewModel.nextQuestion(it)
-                },
-            )
+
+            QuestionOptions(viewModel.currentQuestion?.options, viewModel.showAnswer, viewModel.selectedCountry, onClick = {
+                if (viewModel.actualCard == 10 || viewModel.counter == 0) {
+                    controller.navigate(NavHostRouterPaths.GAME_RESULT.route)
+                } else {
+                    viewModel.changeActualCard()
+                }
+                // viewModel.resetCounter()
+                viewModel.nextQuestion(it)
+            })
         }
     }
 }
@@ -88,9 +84,13 @@ fun QuestionOptions(
             if (it.correct) {
                 backgroundColor = colorResource(R.color.success)
             }
-            OptionButton(it.country, backgroundColor, onClick = onClick)
+            OptionButton(it.country, backgroundColor, onClick = {
+                onClick(it)
+            })
         } else {
-            OptionButton(it.country, onClick = onClick)
+            OptionButton(it.country, onClick = {
+                onClick(it)
+            })
         }
     }
 }

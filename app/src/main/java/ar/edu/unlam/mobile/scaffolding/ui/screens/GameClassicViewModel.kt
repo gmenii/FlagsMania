@@ -26,6 +26,7 @@ class GameClassicViewModel
         var actualCard by mutableStateOf(1)
         var quizGame: QuizGame? = null
         var currentQuestion: GameQuestion? by mutableStateOf(null)
+        var counter by mutableStateOf(10)
 
         init {
             fetchCountries()
@@ -33,6 +34,19 @@ class GameClassicViewModel
 
         fun addPts(pts: Int) {
             this.pts += pts
+        }
+
+        fun decrementCounter() {
+            if (counter > 0) {
+                counter--
+                if (counter == 0) {
+                    // nextQuestion(selectedCountry)
+                }
+            }
+        }
+
+        fun resetCounter() {
+            this.counter = 10
         }
 
         fun changeActualCard() {

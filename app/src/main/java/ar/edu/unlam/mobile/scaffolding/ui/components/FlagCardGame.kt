@@ -19,6 +19,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -33,6 +34,12 @@ import ar.edu.unlam.mobile.scaffolding.ui.theme.AppFont
 import coil.compose.AsyncImage
 import coil.decode.SvgDecoder
 import coil.request.ImageRequest
+import androidx.hilt.navigation.compose.hiltViewModel
+import ar.edu.unlam.mobile.scaffolding.R
+import ar.edu.unlam.mobile.scaffolding.ui.screens.GameClassicViewModel
+import ar.edu.unlam.mobile.scaffolding.ui.theme.AppFont
+import kotlinx.coroutines.delay
+
 
 @Composable
 fun FlagCardGame(
@@ -102,7 +109,19 @@ fun FlagCardGame(
 }
 
 @Composable
-fun CounterHolder(modifier: Modifier) {
+fun CounterHolder(
+    modifier: Modifier,
+    viewModel: GameClassicViewModel = hiltViewModel(),
+) {
+    val counter = viewModel.counter
+
+    LaunchedEffect(counter) {
+        while (counter >= 0) {
+            delay(1000)
+            viewModel.decrementCounter()
+        }
+    }
+
     Row(
         modifier =
             modifier
@@ -111,7 +130,6 @@ fun CounterHolder(modifier: Modifier) {
                 .zIndex(1f),
         horizontalArrangement = Arrangement.Center,
     ) {
-        // TODO: Reemplazar Box por futuro componente temporizador
         Box(
             modifier =
                 Modifier
@@ -123,7 +141,7 @@ fun CounterHolder(modifier: Modifier) {
             contentAlignment = Alignment.Center,
         ) {
             Text(
-                text = "5",
+                text = "$counter",
                 color = Color(0xFFC4007A),
                 fontSize = 28.sp,
                 fontFamily = AppFont.Quicksand,
