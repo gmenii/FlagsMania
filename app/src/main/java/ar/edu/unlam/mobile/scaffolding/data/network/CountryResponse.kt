@@ -1,6 +1,6 @@
 package ar.edu.unlam.mobile.scaffolding.data.network
 
-import ar.edu.unlam.mobile.scaffolding.domain.CountryOption
+import ar.edu.unlam.mobile.scaffolding.domain.models.CountryOption
 
 // CLASE DATA PARA LA RESPUESTA DE LA API
 data class CountryResponse(

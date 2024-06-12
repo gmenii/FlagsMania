@@ -1,5 +1,11 @@
 package ar.edu.unlam.mobile.scaffolding.domain
 
+import ar.edu.unlam.mobile.scaffolding.domain.models.CountryOption
+import ar.edu.unlam.mobile.scaffolding.domain.models.GameQuestion
+import ar.edu.unlam.mobile.scaffolding.domain.models.Summary
+import ar.edu.unlam.mobile.scaffolding.domain.repository.LocalQuestionRepository
+import ar.edu.unlam.mobile.scaffolding.domain.services.QuizGame
+import ar.edu.unlam.mobile.scaffolding.domain.usecases.ShuffleGameLogic
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -32,9 +38,9 @@ class QuizGameTest {
     @Test
     fun testTrackCorrectAnswersAndCalculateScore() {
         val quizGame = QuizGame(LocalQuestionRepository().getAllOptions())
-        quizGame.answerQuestion("Washington")
+        quizGame.answerQuestion("USA")
         quizGame.nextQuestion()
-        quizGame.answerQuestion("Paris")
+        quizGame.answerQuestion("France")
         quizGame.nextQuestion()
         quizGame.answerQuestion("Blue")
 
@@ -45,9 +51,9 @@ class QuizGameTest {
     @Test
     fun testSummaryOfResults() {
         val quizGame = QuizGame(LocalQuestionRepository().getAllOptions())
-        quizGame.answerQuestion("Washington")
+        quizGame.answerQuestion("USA")
         quizGame.nextQuestion()
-        quizGame.answerQuestion("Paris")
+        quizGame.answerQuestion("France")
         quizGame.nextQuestion()
         quizGame.answerQuestion("Blue")
 

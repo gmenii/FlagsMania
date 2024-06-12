@@ -1,5 +1,7 @@
-package ar.edu.unlam.mobile.scaffolding.domain
+package ar.edu.unlam.mobile.scaffolding.domain.usecases
 
+import ar.edu.unlam.mobile.scaffolding.domain.models.CountryOption
+import ar.edu.unlam.mobile.scaffolding.domain.models.GameQuestion
 import org.junit.Assert
 import java.util.Random
 

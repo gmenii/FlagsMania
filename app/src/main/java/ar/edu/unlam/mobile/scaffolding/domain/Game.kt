@@ -1,5 +1,7 @@
 package ar.edu.unlam.mobile.scaffolding.domain
 
+import ar.edu.unlam.mobile.scaffolding.domain.models.GameQuestion
+
 class Game {
     private val questions = mutableListOf<GameQuestion>()
 
