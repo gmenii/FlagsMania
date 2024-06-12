@@ -37,7 +37,8 @@ fun GameClassicResultScreen(
     Column(
         modifier =
             Modifier
-                .fillMaxSize(), // Extiende el Column a toda la pantalla
+                .fillMaxSize(),
+        // Extiende el Column a toda la pantalla
     ) {
         Box {
             GradientComponent(400)

@@ -8,7 +8,10 @@ import ar.edu.unlam.mobile.scaffolding.domain.usecases.SequentialGameLogic
 
 private const val DEFAULT_POINTS_PER_QUESTION = 10
 
-class QuizGame(optionArrayList: ArrayList<CountryOption>, val gameLogic: IGameLogic = SequentialGameLogic()) {
+class QuizGame(
+    optionArrayList: ArrayList<CountryOption>,
+    val gameLogic: IGameLogic = SequentialGameLogic(),
+) {
     private var questions = mutableListOf<GameQuestion>()
     private val answers = mutableMapOf<Int, Boolean>()
     private var questionIndex = 0

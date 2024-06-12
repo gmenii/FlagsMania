@@ -30,16 +30,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import androidx.hilt.navigation.compose.hiltViewModel
+import ar.edu.unlam.mobile.scaffolding.ui.screens.GameClassicViewModel
 import ar.edu.unlam.mobile.scaffolding.ui.theme.AppFont
 import coil.compose.AsyncImage
 import coil.decode.SvgDecoder
 import coil.request.ImageRequest
-import androidx.hilt.navigation.compose.hiltViewModel
-import ar.edu.unlam.mobile.scaffolding.R
-import ar.edu.unlam.mobile.scaffolding.ui.screens.GameClassicViewModel
-import ar.edu.unlam.mobile.scaffolding.ui.theme.AppFont
 import kotlinx.coroutines.delay
-
 
 @Composable
 fun FlagCardGame(

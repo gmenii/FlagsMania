@@ -59,7 +59,8 @@ class GameClassicViewModel
                     countryRepository.getAllCountries().collect { countryList ->
                         println("==test ${countryList.size}==")
 
-                        val convertedCountries: ArrayList<CountryOption> = convertToArrayList(countryList)
+                        val convertedCountries: ArrayList<CountryOption> =
+                            convertToArrayList(countryList)
 
                         quizGame = QuizGame(convertedCountries, ShuffleGameLogic())
                         quizGame?.randomizeQuestions()

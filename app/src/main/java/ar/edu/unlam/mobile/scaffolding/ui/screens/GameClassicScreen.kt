@@ -57,16 +57,20 @@ fun GameClassicScreen(
         }
 
         Column(modifier = Modifier.padding(16.dp)) {
-
-            QuestionOptions(viewModel.currentQuestion?.options, viewModel.showAnswer, viewModel.selectedCountry, onClick = {
-                if (viewModel.actualCard == 10 || viewModel.counter == 0) {
-                    controller.navigate(NavHostRouterPaths.GAME_RESULT.route)
-                } else {
-                    viewModel.changeActualCard()
-                }
-                // viewModel.resetCounter()
-                viewModel.nextQuestion(it)
-            })
+            QuestionOptions(
+                viewModel.currentQuestion?.options,
+                viewModel.showAnswer,
+                viewModel.selectedCountry,
+                onClick = {
+                    if (viewModel.actualCard == 10 || viewModel.counter == 0) {
+                        controller.navigate(NavHostRouterPaths.GAME_RESULT.route)
+                    } else {
+                        viewModel.changeActualCard()
+                    }
+                    // viewModel.resetCounter()
+                    viewModel.nextQuestion(it)
+                },
+            )
         }
     }
 }
