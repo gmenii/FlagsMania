@@ -38,9 +38,9 @@ class QuizGameTest {
     @Test
     fun testTrackCorrectAnswersAndCalculateScore() {
         val quizGame = QuizGame(LocalQuestionRepository().getAllOptions())
-        quizGame.answerQuestion("Washington")
+        quizGame.answerQuestion("USA")
         quizGame.nextQuestion()
-        quizGame.answerQuestion("Paris")
+        quizGame.answerQuestion("France")
         quizGame.nextQuestion()
         quizGame.answerQuestion("Blue")
 
@@ -51,9 +51,9 @@ class QuizGameTest {
     @Test
     fun testSummaryOfResults() {
         val quizGame = QuizGame(LocalQuestionRepository().getAllOptions())
-        quizGame.answerQuestion("Washington")
+        quizGame.answerQuestion("USA")
         quizGame.nextQuestion()
-        quizGame.answerQuestion("Paris")
+        quizGame.answerQuestion("France")
         quizGame.nextQuestion()
         quizGame.answerQuestion("Blue")
 
