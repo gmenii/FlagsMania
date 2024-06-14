@@ -88,7 +88,7 @@ fun AdvancedGameScreen(
                     } else {
                         viewModel.changeActualCard()
                     }
-                    // viewModel.resetCounter()
+                    viewModel.resetCounter()
                     viewModel.nextFlagQuestion(it)
                 },
             )
@@ -128,7 +128,7 @@ fun CardCountryGame(
     modifier: Modifier,
 ) {
     Box {
-        CounterHolder(modifier)
+        CounterHolder(modifier, viewModel)
         ElevatedCard(
             elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
             shape = RoundedCornerShape(16.dp),

@@ -52,6 +52,7 @@ fun GameClassicScreen(
                     actualCard = viewModel.actualCard,
                     flagURL = viewModel.currentQuestion?.correctAnswer?.flag ?: "Argentina",
                     Modifier,
+                    viewModel,
                 )
             }
         }
@@ -67,7 +68,7 @@ fun GameClassicScreen(
                     } else {
                         viewModel.changeActualCard()
                     }
-                    // viewModel.resetCounter()
+                    viewModel.resetCounter()
                     viewModel.nextQuestion(it)
                 },
             )

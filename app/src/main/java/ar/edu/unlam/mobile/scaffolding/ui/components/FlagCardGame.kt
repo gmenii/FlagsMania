@@ -26,11 +26,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
-import androidx.hilt.navigation.compose.hiltViewModel
 import ar.edu.unlam.mobile.scaffolding.ui.screens.GameClassicViewModel
 import ar.edu.unlam.mobile.scaffolding.ui.theme.AppFont
 import coil.compose.AsyncImage
@@ -44,9 +42,10 @@ fun FlagCardGame(
     actualCard: Int = 0,
     flagURL: String = "",
     modifier: Modifier,
+    viewModel: GameClassicViewModel,
 ) {
     Box {
-        CounterHolder(modifier)
+        CounterHolder(modifier, viewModel)
         ElevatedCard(
             elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
             shape = RoundedCornerShape(16.dp),
@@ -108,7 +107,7 @@ fun FlagCardGame(
 @Composable
 fun CounterHolder(
     modifier: Modifier,
-    viewModel: GameClassicViewModel = hiltViewModel(),
+    viewModel: GameClassicViewModel,
 ) {
     val counter = viewModel.counter
 
@@ -148,13 +147,13 @@ fun CounterHolder(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun FlagCardGamePreview() {
-    FlagCardGame(
-        pts = 100,
-        actualCard = 3,
-        flagURL = "https://flagcdn.com/ar.svg",
-        Modifier,
-    )
-}
+// @Preview(showBackground = true)
+// @Composable
+// fun FlagCardGamePreview() {
+//    FlagCardGame(
+//        pts = 100,
+//        actualCard = 3,
+//        flagURL = "https://flagcdn.com/ar.svg",
+//        Modifier,
+//    )
+// }
