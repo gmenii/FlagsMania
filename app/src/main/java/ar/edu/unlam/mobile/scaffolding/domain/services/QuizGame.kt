@@ -39,6 +39,17 @@ class QuizGame(
         return correct
     }
 
+    fun answerFlagQuestion(optionSelected: String): Boolean {
+        var correct = false
+        questions.getOrNull(questionIndex)?.let { question ->
+            question.options.find { it.flag == optionSelected }?.let { option ->
+                correct = option.correct
+            }
+        }
+        answers[questionIndex] = correct
+        return correct
+    }
+
     fun getCorrectAnswersCount(): Int = answers.values.filter { it }.size
 
     fun calculateScore(): Int = getCorrectAnswersCount() * DEFAULT_POINTS_PER_QUESTION

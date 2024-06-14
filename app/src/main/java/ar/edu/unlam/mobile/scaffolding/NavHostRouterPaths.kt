@@ -4,4 +4,5 @@ enum class NavHostRouterPaths(val route: String) {
     HOME("home"),
     GAME_CLASSIC("GameClassic"),
     GAME_RESULT("GameResult"),
+    ADVANCED_GAME("AdvancedGame"),
 }

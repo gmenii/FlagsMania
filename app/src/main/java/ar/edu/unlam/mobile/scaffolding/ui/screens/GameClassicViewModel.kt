@@ -103,4 +103,17 @@ class GameClassicViewModel
                 currentQuestion = quizGame?.getQuestion()
             }
         }
+
+        fun nextFlagQuestion(answer: String) {
+            showAnswer = true
+            selectedCountry = answer
+            quizGame?.answerFlagQuestion(answer)
+            pts = quizGame?.calculateScore() ?: 0
+            // add a delay in courtine
+            viewModelScope.launch {
+                delay(500)
+                quizGame?.nextQuestion()
+                currentQuestion = quizGame?.getQuestion()
+            }
+        }
     }

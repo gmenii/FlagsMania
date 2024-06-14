@@ -6,7 +6,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import ar.edu.unlam.mobile.scaffolding.ui.components.FlagCardGame
 
 @Composable
 fun HomeScreen(
@@ -32,7 +31,7 @@ fun HomeScreen(
         }
     }
     // CustomButton(text = "Argentina")
-    FlagCardGame(pts = 100, actualCard = 3, flagURL = "Argentina", modifier)
+    //  FlagCardGame(pts = 100, actualCard = 3, flagURL = "Argentina", modifier)
 }
 
 @Preview
