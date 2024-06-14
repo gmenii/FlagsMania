@@ -92,4 +92,8 @@ dependencies {
     // Coil
     implementation(libs.coil)
     implementation(libs.coil.svg)
+
+    // Room
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.ksp)
 }
