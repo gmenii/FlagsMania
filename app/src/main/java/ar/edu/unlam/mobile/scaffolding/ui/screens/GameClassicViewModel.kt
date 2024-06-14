@@ -9,7 +9,9 @@ import ar.edu.unlam.mobile.scaffolding.data.network.CountryResponse
 import ar.edu.unlam.mobile.scaffolding.data.repository.CountryRepository
 import ar.edu.unlam.mobile.scaffolding.domain.models.CountryOption
 import ar.edu.unlam.mobile.scaffolding.domain.models.GameQuestion
+import ar.edu.unlam.mobile.scaffolding.domain.models.GameResult
 import ar.edu.unlam.mobile.scaffolding.domain.services.QuizGame
+import ar.edu.unlam.mobile.scaffolding.domain.usecases.GameResultUseCase
 import ar.edu.unlam.mobile.scaffolding.domain.usecases.ShuffleGameLogic
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -19,7 +21,10 @@ import javax.inject.Inject
 @HiltViewModel
 class GameClassicViewModel
     @Inject
-    constructor(private val countryRepository: CountryRepository) : ViewModel() {
+    constructor(
+        private val countryRepository: CountryRepository,
+        private val gameResultUseCase: GameResultUseCase,
+    ) : ViewModel() {
         var showAnswer by mutableStateOf(false)
         var selectedCountry by mutableStateOf("")
         var pts by mutableStateOf(0)
@@ -40,7 +45,7 @@ class GameClassicViewModel
             if (counter > 0) {
                 counter--
                 if (counter == 0) {
-                    // nextQuestion(selectedCountry)
+                    nextQuestion(selectedCountry)
                 }
             }
         }
@@ -99,8 +104,45 @@ class GameClassicViewModel
             // add a delay in courtine
             viewModelScope.launch {
                 delay(500)
-                quizGame?.nextQuestion()
-                currentQuestion = quizGame?.getQuestion()
+                // Verificar si hay más preguntas disponibles
+                if ((quizGame?.getQuestions()?.size ?: 0) > actualCard) {
+                    quizGame?.nextQuestion()
+                    currentQuestion = quizGame?.getQuestion()
+                    resetCounter()
+                } else {
+                    // Finalizar el juego cuando no hay más preguntas
+                    onGameEnd()
+                }
+
+                //  quizGame?.nextQuestion()
+                //  currentQuestion = quizGame?.getQuestion()
+            }
+        }
+
+        private fun onGameEnd() {
+            endGame()
+        }
+
+        fun endGame() {
+            quizGame?.let {
+                val gameResult =
+                    GameResult(
+                        id = null, //
+                        points = pts,
+                        correctAnswers = quizGame?.getCorrectAnswersCount() ?: 0,
+                        timestamp = System.currentTimeMillis(),
+                    )
+                saveGameResult(gameResult)
+            }
+        }
+
+        fun saveGameResult(gameResult: GameResult) {
+            viewModelScope.launch {
+                try {
+                    gameResultUseCase.saveGameResult(gameResult)
+                } catch (e: Exception) {
+                    println("==Error saving game result: ${e.message}==")
+                }
             }
         }
     }
