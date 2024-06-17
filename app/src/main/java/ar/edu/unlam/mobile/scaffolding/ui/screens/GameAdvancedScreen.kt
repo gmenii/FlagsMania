@@ -4,12 +4,14 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -18,18 +20,18 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
 import ar.edu.unlam.mobile.scaffolding.R
-import ar.edu.unlam.mobile.scaffolding.domain.models.CountryOption
-import ar.edu.unlam.mobile.scaffolding.ui.components.FlagCardGame
+import ar.edu.unlam.mobile.scaffolding.ui.components.CardCountryGame
 import ar.edu.unlam.mobile.scaffolding.ui.components.GradientComponent
-import ar.edu.unlam.mobile.scaffolding.ui.components.OptionButton
+import ar.edu.unlam.mobile.scaffolding.ui.components.QuestionFlagsOptions
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun GameClassicScreen(
+fun GameAdvancedScreen(
     controller: NavHostController,
     viewModel: GameClassicViewModel = hiltViewModel(),
 ) {
     fun goToResult(controller: NavHostController) {
-        controller.popBackStack(NavHostRouterPaths.GAME_CLASSIC.route, true)
+        controller.popBackStack(NavHostRouterPaths.GAME_ADVANCED.route, true)
         controller.navigate(NavHostRouterPaths.GAME_RESULT.route)
     }
 
@@ -56,18 +58,20 @@ fun GameClassicScreen(
 
                 Spacer(modifier = Modifier.padding(24.dp))
 
-                FlagCardGame(
+                CardCountryGame(
                     pts = viewModel.pts,
                     actualCard = viewModel.actualCard,
-                    flagURL = viewModel.currentQuestion?.correctAnswer?.flag ?: "Argentina",
+                    viewModel = viewModel,
                     Modifier,
-                    viewModel,
                 )
             }
         }
 
-        Column(modifier = Modifier.padding(16.dp)) {
-            QuestionOptions(
+        FlowRow(
+            modifier = Modifier.padding(16.dp).fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+        ) {
+            QuestionFlagsOptions(
                 viewModel.currentQuestion?.options,
                 viewModel.showAnswer,
                 viewModel.selectedCountry,
@@ -75,40 +79,16 @@ fun GameClassicScreen(
                     if (viewModel.actualCard == 10) {
                         goToResult(controller)
                     }
-                    viewModel.nextQuestion(it)
+                    viewModel.nextFlagQuestion(it)
                 },
             )
         }
     }
 }
 
-@Composable
-fun QuestionOptions(
-    optionList: List<CountryOption>?,
-    readyToShowAnswer: Boolean,
-    selectedCountry: String,
-    onClick: (String) -> Unit = {},
-) {
-    optionList?.forEach {
-        if (readyToShowAnswer && it.country == selectedCountry) {
-            var backgroundColor = colorResource(R.color.failed)
-            if (it.correct) {
-                backgroundColor = colorResource(R.color.success)
-            }
-            OptionButton(it.country, backgroundColor, onClick = {
-                onClick(it)
-            })
-        } else {
-            OptionButton(it.country, onClick = {
-                onClick(it)
-            })
-        }
-    }
-}
-
 @Preview(showBackground = true)
 @Composable
-fun GameClassicScreenPreview() {
+fun AdvancedGameScreenPreview() {
     val controller = rememberNavController()
-    GameClassicScreen(controller)
+    GameAdvancedScreen(controller)
 }

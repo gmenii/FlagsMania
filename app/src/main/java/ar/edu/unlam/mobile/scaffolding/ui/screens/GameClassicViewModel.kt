@@ -26,7 +26,7 @@ class GameClassicViewModel
         private val gameResultUseCase: GameResultUseCase,
     ) : ViewModel() {
         var showAnswer by mutableStateOf(false)
-        var onFinish: (() -> Unit)? = null
+        var onCounterFinish: (() -> Unit)? = null
         var selectedCountry by mutableStateOf("")
         var pts by mutableStateOf(0)
         var actualCard by mutableStateOf(1)
@@ -43,7 +43,7 @@ class GameClassicViewModel
                 counter--
                 if (counter == 0) {
                     if (actualCard == 10) {
-                        onFinish?.invoke()
+                        onCounterFinish?.invoke()
                     } else {
                         nextQuestion(selectedCountry)
                     }
@@ -70,16 +70,6 @@ class GameClassicViewModel
 
                         quizGame = QuizGame(convertedCountries, ShuffleGameLogic())
                         quizGame?.randomizeQuestions()
-                    /*quizGame?.getQuestions()?.forEach { gameQuestion ->
-                        println(gameQuestion.correctAnswer.country)
-                        gameQuestion.options.forEach { option ->
-                            if (option.correct) {
-                                println("[*] ${option.city}")
-                            } else {
-                                println("[ ] ${option.city}")
-                            }
-                        }
-                    }*/
                         currentQuestion = quizGame?.getQuestion()
                     }
                 } catch (e: Exception) {
@@ -102,6 +92,18 @@ class GameClassicViewModel
             selectedCountry = answer
             quizGame?.answerQuestion(answer)
             pts = quizGame?.calculateScore() ?: 0
+            evaluateOnAnswerQuestion()
+        }
+
+        fun nextFlagQuestion(answer: String) {
+            showAnswer = true
+            selectedCountry = answer
+            quizGame?.answerFlagQuestion(answer)
+            pts = quizGame?.calculateScore() ?: 0
+            evaluateOnAnswerQuestion()
+        }
+
+        private fun evaluateOnAnswerQuestion() {
             // add a delay in courtine
             viewModelScope.launch {
                 delay(500)
@@ -115,9 +117,6 @@ class GameClassicViewModel
                     // Finalizar el juego cuando no hay más preguntas
                     onGameEnd()
                 }
-
-                //  quizGame?.nextQuestion()
-                //  currentQuestion = quizGame?.getQuestion()
             }
         }
 
@@ -141,19 +140,6 @@ class GameClassicViewModel
                 } catch (e: Exception) {
                     println("==Error saving game result: ${e.message}==")
                 }
-            }
-        }
-
-        fun nextFlagQuestion(answer: String) {
-            showAnswer = true
-            selectedCountry = answer
-            quizGame?.answerFlagQuestion(answer)
-            pts = quizGame?.calculateScore() ?: 0
-            // add a delay in courtine
-            viewModelScope.launch {
-                delay(500)
-                quizGame?.nextQuestion()
-                currentQuestion = quizGame?.getQuestion()
             }
         }
     }

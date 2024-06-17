@@ -4,26 +4,27 @@ import ar.edu.unlam.mobile.scaffolding.domain.models.CountryOption
 import ar.edu.unlam.mobile.scaffolding.domain.models.GameQuestion
 import java.util.Random
 
-private const val DEFAULT_NUMBER_OF_INCORRECT_ANSWERS = 3
+private const val NUMBER_OF_ANSWERS = 4
+private const val NUMBER_OF_QUESTIONS = 10
 
 class ShuffleGameLogic : IGameLogic {
     override fun process(allOptions: ArrayList<CountryOption>): MutableList<GameQuestion> {
         val questions = mutableListOf<GameQuestion>()
         val clonedOptions = allOptions.clone() as ArrayList<CountryOption>
 
-        repeat(10) {
+        repeat(NUMBER_OF_QUESTIONS) {
             // Selecciona 4 opciones aleatorias del clon de allOptions
             val selectedOptions = mutableListOf<CountryOption>()
-            repeat(4) {
+            repeat(NUMBER_OF_ANSWERS) {
                 selectRandomQuestion(clonedOptions)?.let { option ->
                     selectedOptions.add(option)
                 }
             }
 
             // Asegúrate de tener exactamente 4 opciones
-            if (selectedOptions.size == 4) {
+            if (selectedOptions.size == NUMBER_OF_ANSWERS) {
                 // Selecciona una opción correcta aleatoriamente de las 4
-                val correctOptionIndex = Random().nextInt(4)
+                val correctOptionIndex = Random().nextInt(NUMBER_OF_ANSWERS)
                 val correctOption = selectedOptions[correctOptionIndex].copy(correct = true)
 
                 // Marca las demás opciones como incorrectas
