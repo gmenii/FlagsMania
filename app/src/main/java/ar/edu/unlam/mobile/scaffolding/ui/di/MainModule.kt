@@ -11,5 +11,5 @@ import dagger.hilt.android.components.ViewModelComponent
 @InstallIn(ViewModelComponent::class)
 abstract class MainModule {
     @Binds
-    abstract fun bindGameResult(gameResultService: GameResultService): GameResultUseCase
+    abstract fun bindGameResults(gameResultService: GameResultService): GameResultUseCase
 }

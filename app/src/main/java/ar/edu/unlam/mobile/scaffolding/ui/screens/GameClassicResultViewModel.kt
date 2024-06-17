@@ -28,6 +28,7 @@ class GameClassicResultViewModel
             viewModelScope.launch {
                 gameResultUseCase.getGameResults().collect { results ->
                     _gameResults.value = results
+                    // Log para verificar la actualización de datos
                 }
             }
         }
