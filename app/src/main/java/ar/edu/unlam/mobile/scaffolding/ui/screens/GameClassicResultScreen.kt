@@ -36,6 +36,9 @@ fun GameClassicResultScreen(
 ) {
     val gameResults by gameResultViewModel.gameResults.collectAsState()
 
+    // Log para verificar los datos obtenidos
+    Log.d("GameClassicResultScreen", "gameResults: $gameResults")
+
     Column(
         modifier =
             Modifier
@@ -71,60 +74,35 @@ fun GameClassicResultScreen(
                 ScoreCard(counter = result.points)
             }
             Spacer(modifier = Modifier.padding(15.dp))
-             /*     Box {
-            GradientComponent(400)
-
-            Column(verticalArrangement = Arrangement.SpaceBetween) {
-                Spacer(modifier = Modifier.padding(50.dp))
-                Box(
-                    modifier =
-                        Modifier
-                            .align(Alignment.CenterHorizontally),
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.logo_white),
-                        contentDescription = "Logo",
-                    )
-                }
-                */
-
-
-              //  Log.d("Puntos", points.toString())
-              //  ScoreCard(counter = points)
-
-                // Log.d("Puntos", viewModel.pts.toString())
-                // ScoreCard(viewModel.pts)
-            }
         }
-
-            Column(
-                modifier =
-                    Modifier
-                        .fillMaxSize() // Extiende el Column a toda la pantalla
-                        .background(Color.White) // Fondo blanco en el Column
-                        .padding(16.dp),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Column(
-                    modifier = Modifier.padding(16.dp),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    CustomButton(
-                        text = "Volver a jugar",
-                        onClick = { controller.navigate(NavHostRouterPaths.GAME_CLASSIC.route) },
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    CustomButton(
-                        text = "Menu principal",
-                        onClick = { controller.navigate(NavHostRouterPaths.GAME_CLASSIC.route) },
-                    )
-                }
-            }
+    }
+    // Botones para volver a jugar y menú principal
+    Column(
+        modifier =
+            Modifier
+                .fillMaxSize() // Extiende el Column a toda la pantalla
+                .background(Color.White) // Fondo blanco en el Column
+                .padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            CustomButton(
+                text = "Volver a jugar",
+                onClick = { controller.navigate(NavHostRouterPaths.GAME_CLASSIC.route) },
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            CustomButton(
+                text = "Menu principal",
+                onClick = { controller.navigate(NavHostRouterPaths.GAME_CLASSIC.route) },
+            )
         }
-
-
+    }
+}
 
 @Preview(showBackground = true)
 @Composable
