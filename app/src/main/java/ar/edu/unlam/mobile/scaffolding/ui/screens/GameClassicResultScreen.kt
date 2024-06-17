@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,10 +31,12 @@ import ar.edu.unlam.mobile.scaffolding.ui.components.ScoreCard
 @Composable
 fun GameClassicResultScreen(
     controller: NavHostController,
-    viewModel: GameClassicViewModel = hiltViewModel(),
+    gameResultViewModel: GameClassicResultViewModel = hiltViewModel(),
 ) {
-    // Observa los datos del ViewModel
-    val points by viewModel::pts
+    val gameResults by gameResultViewModel.gameResults.collectAsState()
+    val firstGameResult = gameResultViewModel.firstGameResult
+    Log.d("room", "Todos los resultados de la db: $gameResults")
+    Log.d("GameClassicResultScreen", "firstGameResult: $firstGameResult")
 
     Column(
         modifier =
@@ -57,20 +61,18 @@ fun GameClassicResultScreen(
                 }
 
                 Spacer(modifier = Modifier.padding(15.dp))
-
-                Log.d("Puntos", points.toString())
-                ScoreCard(counter = points)
-
-                // Log.d("Puntos", viewModel.pts.toString())
-                // ScoreCard(viewModel.pts)
+                ScoreCard(
+                    counter = firstGameResult?.points,
+                    correctAnswers = firstGameResult?.correctAnswers,
+                )
             }
         }
 
         Column(
             modifier =
                 Modifier
-                    .fillMaxSize() // Extiende el Column a toda la pantalla
-                    .background(Color.White) // Fondo blanco en el Column
+                    .fillMaxSize()
+                    .background(Color.White)
                     .padding(16.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
