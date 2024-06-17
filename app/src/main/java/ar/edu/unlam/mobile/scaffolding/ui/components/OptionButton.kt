@@ -11,7 +11,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import ar.edu.unlam.mobile.scaffolding.ui.theme.AppFont
 
 @Composable
@@ -20,7 +19,6 @@ fun OptionButton(
     backgroundColor: Color = Color.White,
     labelColor: Color = Color.Black,
     onClick: (String) -> Unit = {},
-    viewModel: OptionButtonViewModel = hiltViewModel(),
 ) {
     Button(
         modifier = Modifier.fillMaxWidth().padding(4.dp),

@@ -28,6 +28,9 @@ fun GameClassicScreen(
     controller: NavHostController,
     viewModel: GameClassicViewModel = hiltViewModel(),
 ) {
+    viewModel.onFinish = {
+        controller.navigate(NavHostRouterPaths.GAME_RESULT.route)
+    }
     Column {
         Box {
             GradientComponent(250)
@@ -62,13 +65,12 @@ fun GameClassicScreen(
                 viewModel.showAnswer,
                 viewModel.selectedCountry,
                 onClick = {
-                    if (viewModel.actualCard == 10 || viewModel.counter == 0) {
+                    if (viewModel.actualCard == 10) {
                         controller.navigate(NavHostRouterPaths.GAME_RESULT.route)
-                    } else {
-                        viewModel.changeActualCard()
                     }
-                    // viewModel.resetCounter()
                     viewModel.nextQuestion(it)
+
+                    // viewModel.resetCounter()
                 },
             )
         }

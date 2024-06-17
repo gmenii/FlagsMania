@@ -15,7 +15,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import ar.edu.unlam.mobile.scaffolding.ui.screens.GameClassicResultScreen
-import ar.edu.unlam.mobile.scaffolding.ui.screens.GameClassicResultViewModel
 import ar.edu.unlam.mobile.scaffolding.ui.screens.GameClassicScreen
 import ar.edu.unlam.mobile.scaffolding.ui.screens.HomeScreen
 import ar.edu.unlam.mobile.scaffolding.ui.theme.ScaffoldingV2Theme
@@ -45,7 +44,6 @@ fun MainScreen() {
     // para navegar como naviegate y también la información de en dónde se "encuentra" el usuario
     // a través del back stack
     val controller = rememberNavController()
-    val gameResultViewModel: GameClassicResultViewModel = hiltViewModel()
     Scaffold { paddingValue ->
         // NavHost es el componente que funciona como contenedor de los otros componentes que
         // podrán ser destinos de navegación.
@@ -62,7 +60,7 @@ fun MainScreen() {
             }
             composable(NavHostRouterPaths.GAME_RESULT.route) {
                 // Home es el componente en sí que es el destino de navegación.
-                GameClassicResultScreen(controller, gameResultViewModel)
+                GameClassicResultScreen(controller)
             }
         }
     }
