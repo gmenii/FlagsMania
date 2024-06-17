@@ -62,8 +62,8 @@ fun GameClassicResultScreen(
 
                 Spacer(modifier = Modifier.padding(15.dp))
                 ScoreCard(
-                    counter = firstGameResult?.points,
-                    correctAnswers = firstGameResult?.correctAnswers,
+                    counter = firstGameResult?.points ?: 0,
+                    correctAnswers = firstGameResult?.correctAnswers ?: 0,
                 )
             }
         }
@@ -89,7 +89,7 @@ fun GameClassicResultScreen(
                 Spacer(modifier = Modifier.height(16.dp))
                 CustomButton(
                     text = "Menu principal",
-                    onClick = { controller.navigate(NavHostRouterPaths.GAME_CLASSIC.route) },
+                    onClick = { controller.navigate(NavHostRouterPaths.HOME.route) },
                 )
             }
         }
