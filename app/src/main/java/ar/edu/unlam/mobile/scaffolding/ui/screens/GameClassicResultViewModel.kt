@@ -17,6 +17,9 @@ class GameClassicResultViewModel
         private val _gameResults = MutableStateFlow<List<GameResult>>(emptyList())
         val gameResults: StateFlow<List<GameResult>> = _gameResults
 
+        val firstGameResult: GameResult?
+            get() = _gameResults.value.firstOrNull()
+
         init {
             fetchGameResults()
         }

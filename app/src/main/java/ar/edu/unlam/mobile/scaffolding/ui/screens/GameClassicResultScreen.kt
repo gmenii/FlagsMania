@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -35,43 +34,17 @@ fun GameClassicResultScreen(
     gameResultViewModel: GameClassicResultViewModel = hiltViewModel(),
 ) {
     val gameResults by gameResultViewModel.gameResults.collectAsState()
+    val firstGameResult = gameResultViewModel.firstGameResult
+    Log.d("room", "Todos los resultados de la db: $gameResults")
+    Log.d("GameClassicResultScreen", "firstGameResult: $firstGameResult")
 
     Column(
         modifier =
             Modifier
                 .fillMaxSize(),
+        // Extiende el Column a toda la pantalla
     ) {
-        // Encabezado con imagen y puntuación
-        Box(
-            modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .height(200.dp),
-        ) {
-            // Fondo con gradiente y logo
-            GradientComponent(height = 200)
-            Image(
-                painter = painterResource(id = R.drawable.logo_white),
-                contentDescription = "Logo",
-                modifier = Modifier.align(Alignment.Center),
-            )
-        }
-
-        // Contenido principal
-        Column(
-            modifier =
-                Modifier
-                    .fillMaxSize()
-                    .padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            // Mostrar resultados del juego
-            gameResults.forEach { result ->
-                ScoreCard(counter = result.points)
-            }
-            Spacer(modifier = Modifier.padding(15.dp))
-             /*     Box {
+        Box {
             GradientComponent(400)
 
             Column(verticalArrangement = Arrangement.SpaceBetween) {
@@ -86,45 +59,42 @@ fun GameClassicResultScreen(
                         contentDescription = "Logo",
                     )
                 }
-                */
 
-
-              //  Log.d("Puntos", points.toString())
-              //  ScoreCard(counter = points)
-
-                // Log.d("Puntos", viewModel.pts.toString())
-                // ScoreCard(viewModel.pts)
+                Spacer(modifier = Modifier.padding(15.dp))
+                ScoreCard(
+                    counter = firstGameResult?.points,
+                    correctAnswers = firstGameResult?.correctAnswers,
+                )
             }
         }
 
+        Column(
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .background(Color.White)
+                    .padding(16.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
             Column(
-                modifier =
-                    Modifier
-                        .fillMaxSize() // Extiende el Column a toda la pantalla
-                        .background(Color.White) // Fondo blanco en el Column
-                        .padding(16.dp),
+                modifier = Modifier.padding(16.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Column(
-                    modifier = Modifier.padding(16.dp),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    CustomButton(
-                        text = "Volver a jugar",
-                        onClick = { controller.navigate(NavHostRouterPaths.GAME_CLASSIC.route) },
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    CustomButton(
-                        text = "Menu principal",
-                        onClick = { controller.navigate(NavHostRouterPaths.GAME_CLASSIC.route) },
-                    )
-                }
+                CustomButton(
+                    text = "Volver a jugar",
+                    onClick = { controller.navigate(NavHostRouterPaths.GAME_CLASSIC.route) },
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                CustomButton(
+                    text = "Menu principal",
+                    onClick = { controller.navigate(NavHostRouterPaths.GAME_CLASSIC.route) },
+                )
             }
         }
-
-
+    }
+}
 
 @Preview(showBackground = true)
 @Composable

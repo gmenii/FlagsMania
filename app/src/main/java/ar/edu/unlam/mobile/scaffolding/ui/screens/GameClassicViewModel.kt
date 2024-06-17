@@ -26,6 +26,7 @@ class GameClassicViewModel
         private val gameResultUseCase: GameResultUseCase,
     ) : ViewModel() {
         var showAnswer by mutableStateOf(false)
+        var onFinish: (() -> Unit)? = null
         var selectedCountry by mutableStateOf("")
         var pts by mutableStateOf(0)
         var actualCard by mutableStateOf(1)
@@ -37,15 +38,15 @@ class GameClassicViewModel
             fetchCountries()
         }
 
-        fun addPts(pts: Int) {
-            this.pts += pts
-        }
-
         fun decrementCounter() {
             if (counter > 0) {
                 counter--
                 if (counter == 0) {
-                    nextQuestion(selectedCountry)
+                    if (actualCard == 10) {
+                        onFinish?.invoke()
+                    } else {
+                        nextQuestion(selectedCountry)
+                    }
                 }
             }
         }
@@ -105,10 +106,11 @@ class GameClassicViewModel
             viewModelScope.launch {
                 delay(500)
                 // Verificar si hay más preguntas disponibles
-                if ((quizGame?.getQuestions()?.size ?: 0) > actualCard) {
+                if (actualCard < 10) {
                     quizGame?.nextQuestion()
                     currentQuestion = quizGame?.getQuestion()
                     resetCounter()
+                    changeActualCard()
                 } else {
                     // Finalizar el juego cuando no hay más preguntas
                     onGameEnd()
@@ -120,14 +122,10 @@ class GameClassicViewModel
         }
 
         private fun onGameEnd() {
-            endGame()
-        }
-
-        fun endGame() {
             quizGame?.let {
                 val gameResult =
                     GameResult(
-                        id = null, //
+                        id = null,
                         points = pts,
                         correctAnswers = quizGame?.getCorrectAnswersCount() ?: 0,
                         timestamp = System.currentTimeMillis(),
