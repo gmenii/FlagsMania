@@ -1,6 +1,7 @@
 package ar.edu.unlam.mobile.scaffolding.ui.screens
 
 import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -35,14 +36,18 @@ fun GameClassicResultScreen(
 ) {
     val gameResults by gameResultViewModel.gameResults.collectAsState()
     val firstGameResult = gameResultViewModel.firstGameResult
+    val gameType = controller.currentBackStackEntry?.arguments?.getString("gameType")
     Log.d("room", "Todos los resultados de la db: $gameResults")
     Log.d("GameClassicResultScreen", "firstGameResult: $firstGameResult")
+
+    BackHandler {
+        controller.navigate(NavHostRouterPaths.HOME.route)
+    }
 
     Column(
         modifier =
             Modifier
                 .fillMaxSize(),
-        // Extiende el Column a toda la pantalla
     ) {
         Box {
             GradientComponent(400)
@@ -82,10 +87,21 @@ fun GameClassicResultScreen(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                CustomButton(
-                    text = "Volver a jugar",
-                    onClick = { controller.navigate(NavHostRouterPaths.GAME_CLASSIC.route) },
-                )
+                when (gameType) {
+                    "classic" -> {
+                        CustomButton(
+                            text = "Volver a jugar",
+                            onClick = { controller.navigate(NavHostRouterPaths.GAME_CLASSIC.route) },
+                        )
+                    }
+                    "advance" -> {
+                        CustomButton(
+                            text = "Volver a jugar",
+                            onClick = { controller.navigate(NavHostRouterPaths.GAME_ADVANCED.route) },
+                        )
+                    }
+                }
+
                 Spacer(modifier = Modifier.height(16.dp))
                 CustomButton(
                     text = "Menu principal",

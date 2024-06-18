@@ -1,5 +1,6 @@
 package ar.edu.unlam.mobile.scaffolding.ui.screens
 
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -15,8 +16,19 @@ import ar.edu.unlam.mobile.scaffolding.domain.usecases.GameResultUseCase
 import ar.edu.unlam.mobile.scaffolding.domain.usecases.ShuffleGameLogic
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+@Immutable
+sealed interface GameClassicUIState {
+    data class Success(val question: GameQuestion) : GameClassicUIState
+
+    data object Loading : GameClassicUIState
+
+    data class Error(val message: String) : GameClassicUIState
+}
 
 @HiltViewModel
 class GameClassicViewModel
@@ -25,6 +37,9 @@ class GameClassicViewModel
         private val countryRepository: CountryRepository,
         private val gameResultUseCase: GameResultUseCase,
     ) : ViewModel() {
+        private val _uiState = MutableStateFlow<GameClassicUIState>(GameClassicUIState.Loading)
+        val uiState = _uiState.asStateFlow()
+
         var showAnswer by mutableStateOf(false)
         var onCounterFinish: (() -> Unit)? = null
         var selectedCountry by mutableStateOf("")
@@ -43,6 +58,7 @@ class GameClassicViewModel
                 counter--
                 if (counter == 0) {
                     if (actualCard == 10) {
+                        onGameEnd()
                         onCounterFinish?.invoke()
                     } else {
                         nextQuestion(selectedCountry)
@@ -71,9 +87,15 @@ class GameClassicViewModel
                         quizGame = QuizGame(convertedCountries, ShuffleGameLogic())
                         quizGame?.randomizeQuestions()
                         currentQuestion = quizGame?.getQuestion()
+                        _uiState.value = currentQuestion?.let {
+                            GameClassicUIState.Success(
+                                it,
+                            )
+                        } ?: GameClassicUIState.Error("No questions avaliable")
                     }
                 } catch (e: Exception) {
                     println("==Error fetching countries: ${e.message}==")
+                    _uiState.value = GameClassicUIState.Error("Error fetching countries: ${e.message}")
                 }
             }
         }
