@@ -1,5 +1,6 @@
 package ar.edu.unlam.mobile.scaffolding.ui.components
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -34,7 +35,11 @@ import ar.edu.unlam.mobile.scaffolding.R
 import ar.edu.unlam.mobile.scaffolding.ui.theme.AppFont
 
 @Composable
-fun ScoreCard() {
+fun ScoreCard(
+    counter: Int?,
+    correctAnswers: Int?,
+) {
+    Log.d("ScoreCard", "counter: $counter, correctAnswers: $correctAnswers")
     Box(
         contentAlignment = Alignment.TopCenter,
         modifier =
@@ -66,13 +71,16 @@ fun ScoreCard() {
                     .height(200.dp)
                     .align(Alignment.TopCenter),
         ) {
-            CardContent()
+            CardContent(counter, correctAnswers)
         }
     }
 }
 
 @Composable
-fun CardContent() {
+fun CardContent(
+    counter: Int?,
+    correctAnswers: Int?,
+) {
     Column(
         modifier =
             Modifier
@@ -118,7 +126,7 @@ fun CardContent() {
             }
             Column {
                 Text(
-                    text = "9/10",
+                    text = "${correctAnswers ?: 0}/10",
                     style =
                         TextStyle(
                             fontSize = 16.sp,
@@ -127,8 +135,9 @@ fun CardContent() {
                         ),
                 )
                 Spacer(modifier = Modifier.height(15.dp))
+
                 Text(
-                    text = "1/10",
+                    text = "${10 - correctAnswers!!}/10",
                     style =
                         TextStyle(
                             fontSize = 16.sp,
@@ -136,9 +145,10 @@ fun CardContent() {
                             fontWeight = FontWeight.Bold,
                         ),
                 )
+
                 Spacer(modifier = Modifier.height(15.dp))
                 Text(
-                    text = "200pts",
+                    text = "${counter ?: 0}pts",
                     style =
                         TextStyle(
                             fontSize = 16.sp,
@@ -200,5 +210,5 @@ fun Avatar() {
 @Preview(showBackground = true, backgroundColor = 0xFFE0E0E0)
 @Composable
 fun ScoreCardPreview() {
-    ScoreCard()
+    ScoreCard(100, 10)
 }
