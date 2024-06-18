@@ -102,7 +102,7 @@ fun GameAdvancedRulesScreen(controller: NavHostController) {
             Spacer(Modifier.height(24.dp))
             CustomButton(text = "Jugar") {
                 controller.navigate(
-                    NavHostRouterPaths.GAME_CLASSIC.route,
+                    NavHostRouterPaths.GAME_ADVANCED.route,
                 )
             }
         }
