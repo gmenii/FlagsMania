@@ -135,17 +135,17 @@ fun CardContent(
                         ),
                 )
                 Spacer(modifier = Modifier.height(15.dp))
-                if (correctAnswers != null) {
-                    Text(
-                        text = "${10 - correctAnswers}/10",
-                        style =
-                            TextStyle(
-                                fontSize = 16.sp,
-                                fontFamily = AppFont.Quicksand,
-                                fontWeight = FontWeight.Bold,
-                            ),
-                    )
-                }
+
+                Text(
+                    text = "${10 - correctAnswers!!}/10",
+                    style =
+                        TextStyle(
+                            fontSize = 16.sp,
+                            fontFamily = AppFont.Quicksand,
+                            fontWeight = FontWeight.Bold,
+                        ),
+                )
+
                 Spacer(modifier = Modifier.height(15.dp))
                 Text(
                     text = "${counter ?: 0}pts",

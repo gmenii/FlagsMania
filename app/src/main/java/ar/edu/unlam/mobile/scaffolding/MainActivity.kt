@@ -10,9 +10,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import ar.edu.unlam.mobile.scaffolding.ui.screens.GameAdvancedScreen
 import ar.edu.unlam.mobile.scaffolding.ui.screens.GameClassicResultScreen
 import ar.edu.unlam.mobile.scaffolding.ui.screens.GameClassicScreen
@@ -58,7 +60,10 @@ fun MainScreen() {
                 // Home es el componente en sí que es el destino de navegación.
                 GameClassicScreen(controller)
             }
-            composable(NavHostRouterPaths.GAME_RESULT.route) {
+            composable(
+                route = NavHostRouterPaths.GAME_RESULT.route,
+                arguments = listOf(navArgument("gameType") { type = NavType.StringType }),
+            ) {
                 // Home es el componente en sí que es el destino de navegación.
                 GameClassicResultScreen(controller)
             }
