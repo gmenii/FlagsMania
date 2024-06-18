@@ -71,8 +71,11 @@ fun GameAdvancedRulesScreen(controller: NavHostController) {
             )
             Spacer(Modifier.height(16.dp))
             Text(
-                "• Se mostrará el nombre de un país y 4 banderas de todo el mundo, " +
-                    "tendrás 10 segundos para seleccionar la bandera correcta, ¿Lograrás acertar las 10 preguntas?",
+                "• Se mostrará el nombre " +
+                    "de un país y 4 banderas de todo el mundo, " +
+                    "tendrás 10 segundos para seleccionar la" +
+                    "bandera correcta," +
+                    " ¿Lograrás acertar las 10 preguntas?",
                 fontSize = 14.sp,
                 fontFamily = AppFont.Quicksand,
                 fontWeight =

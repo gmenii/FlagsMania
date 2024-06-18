@@ -71,7 +71,9 @@ fun GameClassicRulesScreen(controller: NavHostController) {
             )
             Spacer(Modifier.height(16.dp))
             Text(
-                "• Se mostrarán 10 banderas de todo el mundo y tendrás 10 segundos para seleccionar la opción que contenga el nombre de la misma.",
+                "• Se mostrarán 10 banderas de todo el mundo " +
+                    "y tendrás 10 segundos para seleccionar la opción" +
+                    " que contenga el nombre de la misma.",
                 fontSize = 14.sp,
                 fontFamily = AppFont.Quicksand,
                 fontWeight =
