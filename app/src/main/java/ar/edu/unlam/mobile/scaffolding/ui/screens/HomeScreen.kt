@@ -49,7 +49,7 @@ fun HomeScreen(
             MenuOptionButton(
                 onClick = {
                     controller.navigate(
-                        NavHostRouterPaths.GAME_CLASSIC
+                        NavHostRouterPaths.GAME_CLASSIC_RULES
                             .route,
                     )
                 },
@@ -61,7 +61,7 @@ fun HomeScreen(
             MenuOptionButton(
                 onClick = {
                     controller.navigate(
-                        NavHostRouterPaths.GAME_ADVANCED
+                        NavHostRouterPaths.GAME_ADVANCED_RULES
                             .route,
                     )
                 },

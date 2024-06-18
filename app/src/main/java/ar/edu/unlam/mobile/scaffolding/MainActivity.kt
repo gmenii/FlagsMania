@@ -1,5 +1,6 @@
 package ar.edu.unlam.mobile.scaffolding
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,8 +16,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import ar.edu.unlam.mobile.scaffolding.ui.screens.GameAdvancedRulesScreen
 import ar.edu.unlam.mobile.scaffolding.ui.screens.GameAdvancedScreen
 import ar.edu.unlam.mobile.scaffolding.ui.screens.GameClassicResultScreen
+import ar.edu.unlam.mobile.scaffolding.ui.screens.GameClassicRulesScreen
 import ar.edu.unlam.mobile.scaffolding.ui.screens.GameClassicScreen
 import ar.edu.unlam.mobile.scaffolding.ui.screens.HomeScreen
 import ar.edu.unlam.mobile.scaffolding.ui.theme.ScaffoldingV2Theme
@@ -26,6 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setContent {
             ScaffoldingV2Theme {
                 // A surface container using the 'background' color from the theme
@@ -70,6 +74,14 @@ fun MainScreen() {
             composable(NavHostRouterPaths.GAME_ADVANCED.route) {
                 // Home es el componente en sí que es el destino de navegación.
                 GameAdvancedScreen(controller)
+            }
+            composable(NavHostRouterPaths.GAME_CLASSIC_RULES.route) {
+                // Home es el componente en sí que es el destino de navegación.
+                GameClassicRulesScreen(controller)
+            }
+            composable(NavHostRouterPaths.GAME_ADVANCED_RULES.route) {
+                // Home es el componente en sí que es el destino de navegación.
+                GameAdvancedRulesScreen(controller)
             }
         }
     }
