@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 // CONFIGURAR RETROFIT
 // Crear el cliente Retrofit
 object ApiClient {
-    private const val BASE_URL = "https://countryinfoapi.com/"
+    private const val BASE_URL = "https://restcountries.com/v3.1/"
 
     val retrofit: Retrofit =
         Retrofit.Builder()
