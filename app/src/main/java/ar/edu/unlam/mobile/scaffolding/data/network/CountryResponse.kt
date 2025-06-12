@@ -4,17 +4,25 @@ import ar.edu.unlam.mobile.scaffolding.domain.models.CountryOption
 
 // CLASE DATA PARA LA RESPUESTA DE LA API
 data class CountryResponse(
-    val name: String,
-    val capital: List<String>?,
-    val region: String,
-    val population: Int,
-    val flag: String,
-) {
-    fun toCountryOption(): CountryOption {
-        return CountryOption(
-            country = name,
-            flag = flag,
-            city = capital?.getOrNull(0) ?: "",
-        )
-    }
-}
+    @SerializedName("name")
+    val name: Name,
+
+    @SerializedName("capital")
+    val capital: List<String>? = null,
+
+    @SerializedName("region")
+    val region: String? = null,
+
+    @SerializedName("flags")
+    val flags: Flags
+)
+
+data class Name(
+    @SerializedName("common")
+    val common: String
+)
+
+data class Flags(
+    @SerializedName("png")
+    val png: String
+)
